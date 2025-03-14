@@ -1,6 +1,11 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This is the main entry point of the Longhorn Network program.
+ *
+ * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales<a/>, am226923
+ */
 public class Main {
     public static void main(String[] args) {
         if (args.length == 0) {

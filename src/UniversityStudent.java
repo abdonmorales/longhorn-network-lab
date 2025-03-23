@@ -19,5 +19,30 @@ public class UniversityStudent extends Student {
         return connectionStrength;
     }
     // TODO: Constructor and additional methods to be implemented
+
+    /**
+     *
+     * This is the constructor for the {@code UniversityStudent}.class
+     *
+     * @param name, the name of the student
+     * @param age, the age of the student
+     * @param gender, the gender of the student
+     * @param year, the year/grade of the student
+     * @param major, the major of the student
+     * @param gpa, the grade point average of the student
+     * @param roommatePrefs, the roommate preferences of the student
+     * @param previousInterns, the previous internship(s) of the students.
+     */
+    public UniversityStudent(String name, int age, String gender, int year, String major, double gpa,
+                             List<String> roommatePrefs, List<String> previousInterns) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.year = year;
+        this.major = major;
+        this.gpa = gpa;
+        this.roommatePreferences = roommatePrefs;
+        this.previousInternships = previousInterns;
+    }
 }
 

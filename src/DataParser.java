@@ -17,6 +17,101 @@ public class DataParser {
      * @throws IOException
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
-        return new ArrayList<>();
+        // Error check here? TODO: Handling erroneous file names.
+        Scanner sc = new Scanner(new File(filename));
+        List<UniversityStudent> students = new ArrayList<>();
+
+        // Setting up expected student metadata.
+        String name = null;
+        int age = 0;
+        String gender = "";
+        int year = 0;
+        String major = "";
+        double gpa = 0.0;
+        List<String> roommatePreferences = new ArrayList<>();
+        List<String> previousInternships = new ArrayList<>();
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+
+            // College student metadata
+
+            // Implement the reading line mechanism here.
+            if (line.isEmpty()) {
+                continue;
+            }
+            if(line.startsWith("Student: ")) {
+                // Do a prelim check and then reset. To add create a new student.
+                if (name != null && !name.isEmpty()) {
+                    UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa,
+                            roommatePreferences, previousInternships);
+                    students.add(student);
+
+                    // This is the reset needed to create the next student if the file contains multiple students.
+                    name = null;
+                    age = 0;
+                    gender = "";
+                    year = 0;
+                    major = "";
+                    gpa = 0.0;
+                    roommatePreferences = new ArrayList<>();
+                    previousInternships = new ArrayList<>();
+                }
+                continue;
+            }
+            String[] split = line.split(":", 2);
+            if (split.length < 2) {
+                continue;
+            }
+
+            String category = split[0].trim();
+            String data = split[1].trim();
+
+            // Add the data by check through each category. Error handling will be implemented later.
+            switch (category) {
+                case "Name":
+                    name = data;
+                    break;
+                case "Age":
+                    age = Integer.parseInt(data);
+                    break;
+                case "Gender":
+                    gender = data;
+                    break;
+                case "Year":
+                    year = Integer.parseInt(data);
+                    break;
+                case "Major":
+                    major = data;
+                    break;
+                case "GPA":
+                    gpa = Double.parseDouble(data);
+                    break;
+                case "RoommatePreferences":
+                    String RoommatePrefs[] = data.split(",");
+                    // For fun.
+                    for (String mate: RoommatePrefs) {
+                        roommatePreferences.add(mate.trim());
+                    }
+                    break;
+                case "PreviousInternships":
+                    String interships[] = data.split(",");
+                    for (String interned: interships) {
+                        previousInternships.add(interned.trim());
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // Do a final check that we have the last student.
+        if (name != null && !name.isEmpty()) {
+            UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa, roommatePreferences,
+                    previousInternships);
+            students.add(student);
+        }
+        sc.close();
+        return students;
     }
 }

@@ -31,11 +31,11 @@ public class DataParser {
         List<String> roommatePreferences = new ArrayList<>();
         List<String> previousInternships = new ArrayList<>();
 
+        // Going line by line of the textfile, for the information that I need.
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
 
             // College student metadata
-
             // Implement the reading line mechanism here.
             if (line.isEmpty()) {
                 continue;
@@ -73,19 +73,31 @@ public class DataParser {
                     name = data;
                     break;
                 case "Age":
-                    age = Integer.parseInt(data);
+                    try {
+                        age = Integer.parseInt(data);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect number format for age!");
+                    }
                     break;
                 case "Gender":
                     gender = data;
                     break;
                 case "Year":
-                    year = Integer.parseInt(data);
+                    try {
+                        year = Integer.parseInt(data);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect number format for year!");
+                    }
                     break;
                 case "Major":
                     major = data;
                     break;
                 case "GPA":
-                    gpa = Double.parseDouble(data);
+                    try {
+                        gpa = Double.parseDouble(data);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect number format for gpa!");
+                    }
                     break;
                 case "RoommatePreferences":
                     String RoommatePrefs[] = data.split(",");
@@ -95,8 +107,8 @@ public class DataParser {
                     }
                     break;
                 case "PreviousInternships":
-                    String interships[] = data.split(",");
-                    for (String interned: interships) {
+                    String[] internships = data.split(",");
+                    for (String interned: internships) {
                         previousInternships.add(interned.trim());
                     }
                     break;

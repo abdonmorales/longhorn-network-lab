@@ -18,7 +18,6 @@ public class UniversityStudent extends Student {
         int connectionStrength = 0;
         return connectionStrength;
     }
-    // TODO: Constructor and additional methods to be implemented
 
     /**
      *
@@ -35,6 +34,7 @@ public class UniversityStudent extends Student {
      */
     public UniversityStudent(String name, int age, String gender, int year, String major, double gpa,
                              List<String> roommatePrefs, List<String> previousInterns) {
+        // Is there a more proper way to simplify this? We need to reduce overhead.
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -44,5 +44,7 @@ public class UniversityStudent extends Student {
         this.roommatePreferences = roommatePrefs;
         this.previousInternships = previousInterns;
     }
+
+    // TODO: Implement additional methods in the later stages if needed.
 }
 

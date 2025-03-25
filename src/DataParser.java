@@ -17,8 +17,9 @@ public class DataParser {
      * @throws IOException
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
-        // Error check here? TODO: Handling erroneous file names.
         Scanner sc = new Scanner(new File(filename));
+        // Check if the file is empty, before doing the actual processing.
+        // if (!sc.hasNextLine()) {}
         List<UniversityStudent> students = new ArrayList<>();
 
         // Setting up expected student metadata.
@@ -61,7 +62,9 @@ public class DataParser {
             }
             String[] split = line.split(":", 2);
             if (split.length < 2) {
-                continue;
+                sc.close();
+                throw new IllegalArgumentException("Parsing error: Incorrect format in line: '" + line + "'. " +
+                        "Expected format 'Name: <value>'.");
             }
 
             String category = split[0].trim();
@@ -76,7 +79,9 @@ public class DataParser {
                     try {
                         age = Integer.parseInt(data);
                     } catch (NumberFormatException e) {
-                        System.out.println("Incorrect number format for age!");
+                        sc.close();
+                        System.out.println("Number format error: Invalid number format for age: '" + data +
+                                "' in student entry for " + name + ".");
                     }
                     break;
                 case "Gender":
@@ -86,7 +91,9 @@ public class DataParser {
                     try {
                         year = Integer.parseInt(data);
                     } catch (NumberFormatException e) {
-                        System.out.println("Incorrect number format for year!");
+                        sc.close();
+                        System.out.println("Number format error: Invalid number format for year: '" + data +
+                                "' in student entry for " + name + ".");
                     }
                     break;
                 case "Major":
@@ -96,7 +103,9 @@ public class DataParser {
                     try {
                         gpa = Double.parseDouble(data);
                     } catch (NumberFormatException e) {
-                        System.out.println("Incorrect number format for gpa!");
+                        sc.close();
+                        System.out.println("Number format error: Invalid number format for GPA: '" + data +
+                                "' in student entry for " + name + ".");
                     }
                     break;
                 case "RoommatePreferences":
@@ -126,4 +135,5 @@ public class DataParser {
         sc.close();
         return students;
     }
+
 }

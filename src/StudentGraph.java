@@ -8,4 +8,10 @@
 public class StudentGraph {
     // Implement later next week. Before the hard deadline for Stage 1.
 
+    public StudentGraph(java.util.List<UniversityStudent> students) {
+    }
+
+    public void displayGraph() {
+
+    }
 }

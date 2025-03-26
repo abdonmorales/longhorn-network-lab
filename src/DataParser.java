@@ -41,7 +41,7 @@ public class DataParser {
             if (line.isEmpty()) {
                 continue;
             }
-            if(line.startsWith("Student: ")) {
+            if(line.startsWith("Student:")) {
                 // Do a prelim check and then reset. To add create a new student.
                 if (name != null && !name.isEmpty()) {
                     UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa,

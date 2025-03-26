@@ -46,5 +46,13 @@ public class UniversityStudent extends Student {
     }
 
     // TODO: Implement additional methods in the later stages if needed.
+    public String toString() {
+        String out = this.getClass().getSimpleName() + "{";
+        out += "name='" + name + "', age=" + age + ", gender='" + gender + "', year=" + year
+                + ", major='" + major + "', GPA=" + gpa +
+                ", roommatePreferences=" + roommatePreferences.toString() + ", previousInternships="
+                + previousInternships.toString() + "}";
+        return out;
+    }
 }
 

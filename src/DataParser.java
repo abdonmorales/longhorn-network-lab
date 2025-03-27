@@ -14,7 +14,7 @@ public class DataParser {
      *
      * @param filename the filename of the text file containing the student metadata.
      * @return {@code List<UniversityStudent>}
-     * @throws IOException
+     * @throws IOException throws an IOException when the file being loaded to the scanner is missing.
      */
     public static List<UniversityStudent> parseStudents(String filename) throws IOException {
         Scanner sc = new Scanner(new File(filename));
@@ -24,11 +24,11 @@ public class DataParser {
 
         // Setting up expected student metadata.
         String name = null;
-        int age = 0;
+        int age = -1;
         String gender = "";
-        int year = 0;
+        int year = -1;
         String major = "";
-        double gpa = 0.0;
+        double gpa = -1.0;
         List<String> roommatePreferences = new ArrayList<>();
         List<String> previousInternships = new ArrayList<>();
 
@@ -41,9 +41,12 @@ public class DataParser {
             if (line.isEmpty()) {
                 continue;
             }
+
             if(line.startsWith("Student:")) {
                 // Do a prelim check and then reset. To add create a new student.
                 if (name != null && !name.isEmpty()) {
+                    studentValidation(name, age, gender, year, major, gpa, roommatePreferences,
+                            previousInternships);
                     UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa,
                             roommatePreferences, previousInternships);
                     students.add(student);
@@ -63,8 +66,9 @@ public class DataParser {
             String[] split = line.split(":", 2);
             if (split.length < 2) {
                 sc.close();
-                throw new IllegalArgumentException("Parsing error: Incorrect format in line: '" + line + "'. " +
-                        "Expected format 'Name: <value>'.");
+                String field = line.split(" ")[0].trim();
+                throw new IllegalArgumentException("Incorrect format in line: '" + line +
+                        "'. Expected format '" + field + ": <value>'.");
             }
 
             String category = split[0].trim();
@@ -80,7 +84,7 @@ public class DataParser {
                         age = Integer.parseInt(data);
                     } catch (NumberFormatException e) {
                         sc.close();
-                        System.out.println("Number format error: Invalid number format for age: '" + data +
+                        throw new NumberFormatException("Invalid number format for age: '" + data +
                                 "' in student entry for " + name + ".");
                     }
                     break;
@@ -92,7 +96,7 @@ public class DataParser {
                         year = Integer.parseInt(data);
                     } catch (NumberFormatException e) {
                         sc.close();
-                        System.out.println("Number format error: Invalid number format for year: '" + data +
+                        throw new NumberFormatException("Invalid number format for year: '" + data +
                                 "' in student entry for " + name + ".");
                     }
                     break;
@@ -104,12 +108,12 @@ public class DataParser {
                         gpa = Double.parseDouble(data);
                     } catch (NumberFormatException e) {
                         sc.close();
-                        System.out.println("Number format error: Invalid number format for GPA: '" + data +
+                        throw new NumberFormatException("Invalid number format for GPA: '" + data +
                                 "' in student entry for " + name + ".");
                     }
                     break;
                 case "RoommatePreferences":
-                    String RoommatePrefs[] = data.split(",");
+                    String[] RoommatePrefs = data.split(",");
                     // For fun.
                     for (String mate: RoommatePrefs) {
                         roommatePreferences.add(mate.trim());
@@ -128,12 +132,59 @@ public class DataParser {
 
         // Do a final check that we have the last student.
         if (name != null && !name.isEmpty()) {
+            // TODO: Ask about passing through scanner to gracefully exit.
+            studentValidation(name, age, gender, year, major, gpa, roommatePreferences,
+                    previousInternships);
             UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa, roommatePreferences,
                     previousInternships);
             students.add(student);
         }
         sc.close();
         return students;
+    }
+
+    /**
+     *
+     * The purpose of the studentValidation method is to make sure there is not
+     * a missing field by looking through the data after processing.
+     *
+     * @param name, the student name
+     * @param age, the age of the student
+     * @param gender, the gender of the student
+     * @param year, the year (classification) of the student
+     * @param major, the student's major
+     * @param gpa, the student's GPA
+     * @param roommatePreferences, the List of String(s) containing the student's roommate preferences.
+     * @param previousInternships, the List of String(s) containing the student's previous internships.
+     */
+    private static void studentValidation(String name, int age, String gender, int year, String major, double gpa,
+                                          List<String> roommatePreferences, List<String> previousInternships) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Missing required field 'Name' in student entry for " + name + ".");
+        }
+        if (age == -1) {
+            throw new IllegalArgumentException("Missing required field 'Age' in student entry for " + name + ".");
+        }
+        if (gender == null || gender.isEmpty()) {
+            throw new IllegalArgumentException("Missing required field 'Gender' in student entry for " + name + ".");
+        }
+        if (year == -1) {
+            throw new IllegalArgumentException("Missing required field 'Year' in student entry for " + name + ".");
+        }
+        if (major == null || major.isEmpty()) {
+            throw new IllegalArgumentException("Missing required field 'Major' in student entry for " + name + ".");
+        }
+        if (gpa == -1.0) {
+            throw new IllegalArgumentException("Missing required field 'GPA' in student entry for " + name + ".");
+        }
+        if (roommatePreferences == null || roommatePreferences.isEmpty()) {
+            throw new IllegalArgumentException("Missing required field 'RoommatePreferences' in student entry for "
+                    + name + ".");
+        }
+        if (previousInternships == null || previousInternships.isEmpty()) {
+            throw new IllegalArgumentException("Missing required field 'previousInternships' in student entry for "
+                    + name + ".");
+        }
     }
 
 }

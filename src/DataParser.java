@@ -64,6 +64,7 @@ public class DataParser {
                 continue;
             }
             String[] split = line.split(":", 2);
+            // Check if the length of the tokens array that we gather are less than 2
             if (split.length < 2) {
                 sc.close();
                 String field = line.split(" ")[0].trim();
@@ -159,28 +160,45 @@ public class DataParser {
      */
     private static void studentValidation(String name, int age, String gender, int year, String major, double gpa,
                                           List<String> roommatePreferences, List<String> previousInternships) {
+        // Check name is an empty field
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Missing required field 'Name' in student entry for " + name + ".");
         }
-        if (age == -1) {
+
+        // Check if age is an empty field by presetting the age as -1.
+        // EDGE: Case, what if their age is actually zero.
+        if (age <= -1) {
             throw new IllegalArgumentException("Missing required field 'Age' in student entry for " + name + ".");
         }
+
+        // Check if gender is an empty field
         if (gender == null || gender.isEmpty()) {
             throw new IllegalArgumentException("Missing required field 'Gender' in student entry for " + name + ".");
         }
-        if (year == -1) {
+
+        // Check if year is an empty field by using the preset of -1. I might change this to zero as it makes more
+        // logical sense.
+        if (year <= -1) {
             throw new IllegalArgumentException("Missing required field 'Year' in student entry for " + name + ".");
         }
+
+        // Check if major is an empty field.
         if (major == null || major.isEmpty()) {
             throw new IllegalArgumentException("Missing required field 'Major' in student entry for " + name + ".");
         }
-        if (gpa == -1.0) {
+
+        // Check if the gpa is an empty field (set it as -1.0 for easier detection).
+        if (gpa <= -1.0) {
             throw new IllegalArgumentException("Missing required field 'GPA' in student entry for " + name + ".");
         }
+
+        // Check if ArrayList<>() roommatePreferences is empty
         if (roommatePreferences == null || roommatePreferences.isEmpty()) {
             throw new IllegalArgumentException("Missing required field 'RoommatePreferences' in student entry for "
                     + name + ".");
         }
+
+        // Check if ArrayList<>() previousInternships is empty
         if (previousInternships == null || previousInternships.isEmpty()) {
             throw new IllegalArgumentException("Missing required field 'previousInternships' in student entry for "
                     + name + ".");

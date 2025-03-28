@@ -47,6 +47,14 @@ public class UniversityStudent extends Student {
 
     // TODO: Ask about a check on an array containing "None", should be removed from the array.
     //  So then it can print an empty "[]" toString.
+
+    /**
+     * Implements and overrides the toString method from the Object class. In our case, we modify
+     * the toString in our own object for the purpose to display the data of the object rather
+     * than the object's memory address
+     *
+     * @return returns the String representation of the object {@code UniversityStudent}.
+     */
     public String toString() {
         String out = this.getClass().getSimpleName() + "{";
         out += "name='" + name + "', age=" + age + ", gender='" + gender + "', year=" + year
@@ -55,14 +63,14 @@ public class UniversityStudent extends Student {
         if (roommatePreferences.contains("None")) {
             out += ", roommatePreferences=[]";
         } else  {
-            out += ", roommatePreferences=" + roommatePreferences.toString();
+            out += ", roommatePreferences=" + roommatePreferences;
         }
 
         // Check if ArrayList are empty, if they are empty display "[None]"
         if (previousInternships.contains("None")) {
             out += ", previousInternships=[]}";
         } else  {
-            out += ", previousInternships=" + previousInternships.toString() + "}";
+            out += ", previousInternships=" + previousInternships + "}";
         }
         return out;
     }

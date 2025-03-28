@@ -45,13 +45,25 @@ public class UniversityStudent extends Student {
         this.previousInternships = previousInterns;
     }
 
-    // TODO: Implement additional methods in the later stages if needed.
+    // TODO: Ask about a check on an array containing "None", should be removed from the array.
+    //  So then it can print an empty "[]" toString.
     public String toString() {
         String out = this.getClass().getSimpleName() + "{";
         out += "name='" + name + "', age=" + age + ", gender='" + gender + "', year=" + year
-                + ", major='" + major + "', GPA=" + gpa +
-                ", roommatePreferences=" + roommatePreferences.toString() + ", previousInternships="
-                + previousInternships.toString() + "}";
+                + ", major='" + major + "', GPA=" + gpa;
+        // Check if ArrayList are empty, if they are empty display "[None]"
+        if (roommatePreferences.contains("None")) {
+            out += ", roommatePreferences=[]";
+        } else  {
+            out += ", roommatePreferences=" + roommatePreferences.toString();
+        }
+
+        // Check if ArrayList are empty, if they are empty display "[None]"
+        if (previousInternships.contains("None")) {
+            out += ", previousInternships=[]}";
+        } else  {
+            out += ", previousInternships=" + previousInternships.toString() + "}";
+        }
         return out;
     }
 }

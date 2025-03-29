@@ -1,0 +1,34 @@
+@startuml
+[*] --> DataParsing_Started
+DataParsing_Started --> ReadingFile
+ReadingFile --> ParsingStudent
+ParsingStudent --> Validating
+Validating --> CreatingGraph
+CreatingGraph --> RoommateMatching_Started
+
+RoommateMatching_Started --> QueueUnmatched
+QueueUnmatched --> Proposing
+Proposing --> MatchingDecision
+MatchingDecision --> QueueUnmatched : Rejected
+MatchingDecision --> FinalMatches : Accepted
+FinalMatches --> PodFormation_Started
+
+PodFormation_Started --> InitializingGraph
+InitializingGraph --> ApplyPrims
+ApplyPrims --> BuildMST
+BuildMST --> DividePods
+DividePods --> ReferralPathFinding_Started
+
+ReferralPathFinding_Started --> StartSearch
+StartSearch --> TraverseGraph : Dijkstra's Algorithm
+TraverseGraph --> FoundTarget
+TraverseGraph --> NotFound
+
+FoundTarget --> Multithreading_Started
+NotFound --> Multithreading_Started
+
+Multithreading_Started --> FriendRequestThread
+FriendRequestThread --> ChatThread
+ChatThread --> [*]
+@enduml
+

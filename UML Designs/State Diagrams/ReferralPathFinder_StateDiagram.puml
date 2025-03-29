@@ -1,0 +1,9 @@
+@startuml
+[*] --> SetStartStudent
+SetStartStudent --> Traverse
+Traverse --> FoundInternMatch
+Traverse --> NoMatch
+FoundInternMatch --> [*]
+NoMatch --> [*]
+@enduml
+

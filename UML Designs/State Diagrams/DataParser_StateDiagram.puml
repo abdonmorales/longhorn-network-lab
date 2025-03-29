@@ -1,0 +1,11 @@
+@startuml
+[*] --> OpenFile
+OpenFile --> ReadLine
+ReadLine --> ParseField
+ParseField --> ValidateData
+ValidateData --> BuildStudent
+BuildStudent --> ReadLine
+ReadLine --> EndOfFile
+EndOfFile --> [*]
+@enduml
+

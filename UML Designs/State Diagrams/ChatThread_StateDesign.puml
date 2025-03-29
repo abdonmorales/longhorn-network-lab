@@ -1,0 +1,8 @@
+@startuml
+[*] --> StartChat
+StartChat --> SendMessage
+SendMessage --> UpdateChatHistory
+UpdateChatHistory --> EndChat
+EndChat --> [*]
+@enduml
+

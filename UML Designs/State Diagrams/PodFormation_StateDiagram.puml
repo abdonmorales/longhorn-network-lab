@@ -1,0 +1,8 @@
+@startuml
+[*] --> CreateGraph
+CreateGraph --> MSTPerComponent
+MSTPerComponent --> DivideMSTs
+DivideMSTs --> CreatePods
+CreatePods --> [*]
+@enduml
+

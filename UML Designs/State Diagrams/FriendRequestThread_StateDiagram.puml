@@ -1,0 +1,7 @@
+@startuml
+[*] --> InitializeRequest
+InitializeRequest --> SendRequest
+SendRequest --> UpdateFriends
+UpdateFriends --> [*]
+@enduml
+

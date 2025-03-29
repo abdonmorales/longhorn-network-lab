@@ -1,0 +1,11 @@
+@startuml
+[*] --> QueueStudents
+QueueStudents --> ProposeRoommate
+ProposeRoommate --> DecisionPoint
+DecisionPoint --> AcceptProposal
+DecisionPoint --> RejectProposal
+RejectProposal --> QueueStudents
+AcceptProposal --> FinalPairing
+FinalPairing --> [*]
+@enduml
+

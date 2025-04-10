@@ -13,5 +13,19 @@ public class GaleShapley {
      * @param students the list of students.
      */
     public static void assignRoommates(List<UniversityStudent> students) {
+        Queue<UniversityStudent> unPairedStudent = new LinkedList<>(students);
+
+        // Gale-Shapley algorithm applied on student pairing based on roommate preferences.
+        while (!unPairedStudent.isEmpty()) {
+            if () {
+
+            } else {
+                if () {
+
+                } else  {
+
+                }
+            }
+        }
     }
 }

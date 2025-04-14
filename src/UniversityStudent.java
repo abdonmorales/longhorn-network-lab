@@ -19,8 +19,26 @@ public class UniversityStudent extends Student {
         
         // Check if the other student is an instance of UniversityStudent.
         if(!(other instanceof UniversityStudent)) {return connectionStrength;}
+
+        // Add +4 if they are roommates.
+        
         
         UniversityStudent otherStudent = (UniversityStudent) other;
+        // Add +3 if they share the same internship.
+        if (this.previousInternships != null && otherStudent.previousInternships != null) {
+            this.previousInternships.remove("None");
+            otherStudent.previousInternships.remove("None");
+            // Check if the other student has any previous internships.
+            if (otherStudent.previousInternships.isEmpty() || this.previousInternships.isEmpty()) {
+                // If either student has no previous internships, return 0.
+                return connectionStrength;
+            }
+            for (String internship : this.previousInternships) {
+                if (otherStudent.previousInternships.contains(internship)) {
+                    connectionStrength += 3;
+                }
+            }
+        }
 
         // Add +1 if they share the same major.
         if (this.major != null && this.major.equals(otherStudent.major)) {

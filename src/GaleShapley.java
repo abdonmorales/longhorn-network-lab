@@ -1,9 +1,10 @@
 import java.util.*;
 
 /**
- * This class implements the Gale-Shapely algorithm for sorting.
+ * This class implements the Gale-Shapely algorithm for sorting 
+ * and assigning roommate preferences.
  *
- * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923w
+ * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public class GaleShapley {
 
@@ -50,14 +51,14 @@ public class GaleShapley {
                 continue;
             }
 
-            // Gale-Shapely algorithm logic:
+            // Core stable marriage logic:
             if (!studentPair.containsKey(candidate)) {
                 studentPair.put(proposer, candidate);
                 studentPair.put(candidate, proposer);
 
             } else {
                 UniversityStudent currentRoommate = studentPair.get(candidate);
-                if () {
+                if (prefers(candidate, proposer, currentRoommate)) {
                     studentPair.remove(candidate);
                     studentPair.remove(currentRoommate);
                     unPairedStudent.add(currentRoommate);
@@ -75,6 +76,22 @@ public class GaleShapley {
     }
 
     /**
+     * This method checks if the candidate prefers the new proposed roommate over 
+     * the current roommate.
+     * @param candidate the candidate student.
+     * @param newProposedRoommate  the new proposed roommate.
+     * @param currentRoommate the current roommate.
+     * @return true if the candidate prefers the new proposed roommate, false otherwise.
+     */
+    private static boolean prefers (UniversityStudent candidate, UniversityStudent newProposedRoommate, UniversityStudent currentRoommate) {
+        List<String> roommatePrefs = candidate.roommatePreferences;
+        int newRoommateIndex = roommatePrefs.indexOf(newProposedRoommate.name);
+        int currentRoommateIndex = roommatePrefs.indexOf(currentRoommate.name);
+
+        return newRoommateIndex < currentRoommateIndex;
+    }
+
+    /**
      * This method prints the final roommate assignments.
      * 
      * @param studentPairFinal the map of final student pairings.
@@ -82,15 +99,10 @@ public class GaleShapley {
     private static void printFinalRoomateAssignment(Map<UniversityStudent, UniversityStudent> studentPairFinal) {
         System.out.println("Roommate Assignments:");
 
-        // To prevent duplicates we will use a Set<> for printing out the final roommate assignments.
-        Set<UniversityStudent> printed = new HashSet<>();
+        // Iterate through the studentPairFinal map and print the roommate assignments.
         for (UniversityStudent student : studentPairFinal.keySet()) {
-            if (!printed.contains(student)) {
-                UniversityStudent partner = studentPairFinal.get(student);
-                System.out.println(student.name + "is roommates with " + partner.name);
-                printed.add(student);
-                printed.add(partner);
-            }
+            UniversityStudent partner = studentPairFinal.get(student);
+            System.out.println(student.name + " is roommates with " + partner.name);
         }
 
     }

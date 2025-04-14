@@ -12,6 +12,14 @@
         },
         {
             "type": "java",
+            "name": "Main - Input (CHKPT 2)",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "longhorn-network-lab-abdonmorales",
+            "args": "testing/testingcheckpointtwo/input_sample.txt"
+        },
+        {
+            "type": "java",
             "name": "Main - Normal 1 Text",
             "request": "launch",
             "mainClass": "Main",

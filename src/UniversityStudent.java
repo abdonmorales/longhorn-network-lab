@@ -16,6 +16,21 @@ public class UniversityStudent extends Student {
     @Override
     public int calculateConnectionStrength(Student other) {
         int connectionStrength = 0;
+        
+        // Check if the other student is an instance of UniversityStudent.
+        if(!(other instanceof UniversityStudent)) {return connectionStrength;}
+        
+        UniversityStudent otherStudent = (UniversityStudent) other;
+
+        // Add +1 if they share the same major.
+        if (this.major != null && this.major.equals(otherStudent.major)) {
+            connectionStrength += 1;
+        }
+
+        // Add +1 if they share the same age.
+        if (this.age == otherStudent.age) {
+            connectionStrength += 1;
+        }
         return connectionStrength;
     }
 
@@ -44,9 +59,6 @@ public class UniversityStudent extends Student {
         this.roommatePreferences = roommatePrefs;
         this.previousInternships = previousInterns;
     }
-
-    // TODO: Ask about a check on an array containing "None", should be removed from the array.
-    //  So then it can print an empty "[]" toString.
 
     /**
      * Implements and overrides the toString method from the Object class. In our case, we modify

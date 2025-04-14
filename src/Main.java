@@ -22,7 +22,7 @@ public class Main {
             }
 
             // Roommate matching
-            //GaleShapley.assignRoommates(students);
+            GaleShapley.assignRoommates(students);
 
             // Pod formation
           //  StudentGraph graph = new StudentGraph(students); //TODO: implement StudentGraph

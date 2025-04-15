@@ -75,10 +75,19 @@ public class UniversityStudent extends Student {
         this.roommate = null;
     }
 
+    /**
+     * This method sets/assigns the roommate for this student
+     *
+     * @param roommate, the new roommate for this student.
+     */
     public void setRoommate(UniversityStudent roommate) {
         this.roommate = roommate;
     }
 
+    /**
+     * This method gets the roommate of this student
+     * @return roommate
+     */
     public UniversityStudent getRoommate() {
         return roommate;
     }

@@ -20,7 +20,7 @@ public class ReferralPathFinder {
 
     /**
      * This method attempts to find the shortest referral path to student B, who interned at some
-     * company X.
+     * company X. In other words, we are using Dijkstra's algorithm to find the shortest path.
      *
      * @param start the student A we want to connect to Student B
      * @param targetCompany the company that Student A wants to intern.

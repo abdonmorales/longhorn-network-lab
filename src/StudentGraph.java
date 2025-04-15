@@ -16,11 +16,16 @@ public class StudentGraph {
      * @author Abdon Morales, am226923, <a href="mailto:abdonmorales@my.utexas.edu">abdonmorales@my.utexas.edu</a>
      */
     public static class Edge {
+        /** The student that this edge connects to (the neighboring node in the graph) */
         public UniversityStudent neighbor;
+
+        /** The weight of the edge */
         public int weight;
 
         /**
          * This constructor method creates an edge between two students.
+         * @param neighbor the neighbor student.
+         * @param weight the weight of the edge.
          */
         public Edge(UniversityStudent neighbor, int weight) {
             this.neighbor = neighbor;
@@ -38,7 +43,10 @@ public class StudentGraph {
         }
     }
 
-    // Implement later next week. Before the hard deadline for Stage 1.
+    /** 
+     * The adjacency list representing the graph structure.
+     * Maps each student to a list of edges connecting to their neighboring students.
+     */
     private Map<UniversityStudent, List<Edge>> adjacencyList;
 
     /**
@@ -78,7 +86,7 @@ public class StudentGraph {
         System.out.println("\nStudent Graph:");
         
         // Iterate through each student and their edges.
-        for (UniversityStudent student : adjacencyList.keySet()) {
+        for (UniversityStudent student : getAllNodes()) {
             System.out.println(student.name + " -> " + adjacencyList.get(student));
         }
     }
@@ -95,6 +103,8 @@ public class StudentGraph {
     /**
      * The purpose of this method is for it to be useful for traversal 
      * algorithms like Prim's Algorithm and Dijkstra's Algorithm.
+     *
+     * @return Return the {@code List<Edge>} of neighbors of the student.
      */
     public List<Edge> getNeighbors(UniversityStudent student) {
         return adjacencyList.get(student);
@@ -103,6 +113,8 @@ public class StudentGraph {
     /**
      * The purpose of this method is for it to be useful for initializing 
      * traversal algorithms.
+     *
+     * @return Return all of the nodes of the graph.
      */
     public Set<UniversityStudent> getAllNodes() {
         return adjacencyList.keySet();

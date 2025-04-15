@@ -36,8 +36,7 @@ public class DataParser {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
 
-            // College student metadata
-            // Implement the reading line mechanism here.
+            // College student metadata:
             if (line.isEmpty()) {
                 continue;
             }
@@ -75,7 +74,7 @@ public class DataParser {
             String category = split[0].trim();
             String data = split[1].trim();
 
-            // Add the data by check through each category. Error handling will be implemented later.
+            // Add the data by check through each category.
             switch (category) {
                 case "Name":
                     name = data;
@@ -133,7 +132,6 @@ public class DataParser {
 
         // Do a final check that we have the last student.
         if (name != null && !name.isEmpty()) {
-            // TODO: Ask about passing through scanner to gracefully exit.
             studentValidation(name, age, gender, year, major, gpa, roommatePreferences,
                     previousInternships);
             UniversityStudent student = new UniversityStudent(name, age, gender, year, major, gpa, roommatePreferences,

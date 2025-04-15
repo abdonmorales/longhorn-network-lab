@@ -9,12 +9,18 @@ import java.util.*;
  */
 public class StudentGraph {
 
+    /**
+     * This class represents an edge in the graph. Each edge connects two students and has a weight
+     * representing the connection strength between them.
+     * 
+     * @author Abdon Morales, am226923, <a href="mailto:abdonmorales@my.utexas.edu">abdonmorales@my.utexas.edu</a>
+     */
     public static class Edge {
         public UniversityStudent neighbor;
         public int weight;
 
         /**
-         * 
+         * This constructor method creates an edge between two students.
          */
         public Edge(UniversityStudent neighbor, int weight) {
             this.neighbor = neighbor;
@@ -22,7 +28,7 @@ public class StudentGraph {
         }
 
         /**
-         * 
+         * This method returns a string representation of the edge.
          */
         @Override
         public String toString() {

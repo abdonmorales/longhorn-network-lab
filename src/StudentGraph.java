@@ -94,6 +94,12 @@ public class StudentGraph {
     /**
      * This method's purpose is to add a weighted edge between two students 
      * and to ensure the graph is undirected by adding the edge in both directions.
+     *
+     * @param studentA is a {@code UniversityStudent} object and acts as a node between a weighted
+     *                 edge and another node (Student B).
+     * @param studentB is a {@code UniversityStudent} object and acts as a node between a weighted
+     *                 edge and another node (Student A).
+     * @param weight Is the weight of the edge between two nodes/students.
      */
     private void addEdge(UniversityStudent studentA, UniversityStudent studentB, int weight) {
         adjacencyList.get(studentA).add(new Edge(studentB, weight));
@@ -104,6 +110,7 @@ public class StudentGraph {
      * The purpose of this method is for it to be useful for traversal 
      * algorithms like Prim's Algorithm and Dijkstra's Algorithm.
      *
+     * @param student the student we want to find the neighbors of.
      * @return Return the {@code List<Edge>} of neighbors of the student.
      */
     public List<Edge> getNeighbors(UniversityStudent student) {

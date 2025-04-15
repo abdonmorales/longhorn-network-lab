@@ -108,7 +108,7 @@ public class GaleShapley {
         }
 
         // Print the final roommate assignments.
-        printFinalRoomateAssignment(studentPair);
+        printFinalRoommateAssignment(studentPair);
     }
 
     /**
@@ -116,7 +116,7 @@ public class GaleShapley {
      * 
      * @param studentPairFinal the map of final student pairings.
      */
-    private static void printFinalRoomateAssignment(Map<UniversityStudent, UniversityStudent> studentPairFinal) {
+    private static void printFinalRoommateAssignment(Map<UniversityStudent, UniversityStudent> studentPairFinal) {
         System.out.println("Roommate Pairings (Gale-Shapley):");
 
         // Iterate through the studentPairFinal map and print the roommate assignments.

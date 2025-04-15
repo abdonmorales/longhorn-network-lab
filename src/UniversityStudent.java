@@ -7,6 +7,9 @@ import java.util.*;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public class UniversityStudent extends Student {
+    /** Store the assigned roommate */
+    private UniversityStudent roommate;
+
     /**
      * A method that calculates a student's connection strength between student A and Student B.
      *
@@ -17,37 +20,30 @@ public class UniversityStudent extends Student {
     public int calculateConnectionStrength(Student other) {
         int connectionStrength = 0;
         
-        // Check if the other student is an instance of UniversityStudent.
-        if(!(other instanceof UniversityStudent)) {return connectionStrength;}
+        if (other instanceof UniversityStudent) {
+            UniversityStudent otherStudent = (UniversityStudent) other;
 
-        // Add +4 if they are roommates.
-        
-        
-        UniversityStudent otherStudent = (UniversityStudent) other;
-        // Add +3 if they share the same internship.
-        if (this.previousInternships != null && otherStudent.previousInternships != null) {
-            this.previousInternships.remove("None");
-            otherStudent.previousInternships.remove("None");
-            // Check if the other student has any previous internships.
-            if (otherStudent.previousInternships.isEmpty() || this.previousInternships.isEmpty()) {
-                // If either student has no previous internships, return 0.
-                return connectionStrength;
+            // Check if other student is the assigned roommate, add +4 to the strength.
+            if (this.roommate != null && this.roommate.equals(otherStudent)) {
+                connectionStrength += 4;
             }
+
+            // For each shared internship, add +3 to the strength.
             for (String internship : this.previousInternships) {
                 if (otherStudent.previousInternships.contains(internship)) {
                     connectionStrength += 3;
                 }
             }
-        }
 
-        // Add +1 if they share the same major.
-        if (this.major != null && this.major.equals(otherStudent.major)) {
-            connectionStrength += 1;
-        }
+            // If both share the same major, add +2 to the strength.
+            if (this.major.equals(otherStudent.major)) {
+                connectionStrength += 2;
+            }
 
-        // Add +1 if they share the same age.
-        if (this.age == otherStudent.age) {
-            connectionStrength += 1;
+            // If both share the same year, add +1 to the strength.
+            if (this.year == otherStudent.year) {
+                connectionStrength += 1;
+            }
         }
         return connectionStrength;
     }
@@ -76,6 +72,15 @@ public class UniversityStudent extends Student {
         this.gpa = gpa;
         this.roommatePreferences = roommatePrefs;
         this.previousInternships = previousInterns;
+        this.roommate = null;
+    }
+
+    public void setRoommate(UniversityStudent roommate) {
+        this.roommate = roommate;
+    }
+
+    public UniversityStudent getRoommate() {
+        return roommate;
     }
 
     /**
@@ -85,6 +90,7 @@ public class UniversityStudent extends Student {
      *
      * @return returns the String representation of the object {@code UniversityStudent}.
      */
+    @Override
     public String toString() {
         String out = this.getClass().getSimpleName() + "{";
         out += "name='" + name + "', age=" + age + ", gender='" + gender + "', year=" + year

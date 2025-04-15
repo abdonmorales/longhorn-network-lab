@@ -28,12 +28,24 @@ public class GaleShapley {
             indexProposed.put(student, 0);
         }
 
-        // Queue of student students who are not yet paired.
+        // Queue of student students who are not yet paired and still have preferences to propose.
         Queue<UniversityStudent> unPairedStudent = new LinkedList<>(students);
+
+        for (UniversityStudent student : students) {
+            if (student.roommatePreferences.isEmpty()) {
+                unPairedStudent.offer(student);
+            }
+        }
 
         // Gale-Shapley algorithm applied on student pairing based on roommate preferences.
         while (!unPairedStudent.isEmpty()) {
             UniversityStudent proposer = unPairedStudent.poll();
+
+            // If the proposer already has a roommate, continue to the next iteration.
+            if (proposer.getRoommate() != null) {
+                continue;
+            }
+
             int index = indexProposed.get(proposer);
             if (index >= proposer.roommatePreferences.size()) {
                 continue;
@@ -47,26 +59,50 @@ public class GaleShapley {
              * continue to the next iteration.
              */
             if (candidate == null) {
-                unPairedStudent.add(proposer);
+                if (indexProposed.get(proposer) < proposer.roommatePreferences.size()) {
+                    unPairedStudent.offer(proposer);
+                }
                 continue;
             }
 
+            // If the candidate does not list the proposer as a preference, reject the proposer.
+            if (!candidate.roommatePreferences.contains(proposer.name)) {
+                if (indexProposed.get(proposer) < proposer.roommatePreferences.size()) {
+                    unPairedStudent.offer(proposer);
+                }
+                continue;
+            }
+
+            // Reference: https://uw-cse442-wi20.github.io/FP-cs-algorithm/
             // Core stable marriage logic:
-            if (!studentPair.containsKey(candidate)) {
+            // If the candidate is not already paired with someone, pair them with the proposer.
+            if (candidate.getRoommate() == null) {
                 studentPair.put(proposer, candidate);
                 studentPair.put(candidate, proposer);
 
+                proposer.setRoommate(candidate);
+                candidate.setRoommate(proposer);
             } else {
-                UniversityStudent currentRoommate = studentPair.get(candidate);
-                if (prefers(candidate, proposer, currentRoommate)) {
-                    studentPair.remove(candidate);
-                    studentPair.remove(currentRoommate);
-                    unPairedStudent.add(currentRoommate);
+                UniversityStudent currentRoommate = candidate.getRoommate();
+                int currentRoommateIndex = candidate.roommatePreferences.indexOf(currentRoommate.name);
+                int newIndex = candidate.roommatePreferences.indexOf(proposer.name);
 
+                // If the candidate prefers the proposer over their current roommate, swap them.
+                if (newIndex < currentRoommateIndex) {
                     studentPair.put(candidate, proposer);
                     studentPair.put(proposer, candidate);
+
+                    studentPair.remove(currentRoommate);
+                    unPairedStudent.offer(currentRoommate);
+                    currentRoommate.setRoommate(null);
+
+                    proposer.setRoommate(candidate);
+                    candidate.setRoommate(proposer);
                 } else  {
-                    unPairedStudent.add(proposer);
+                    // If the candidate rejects the proposer.
+                    if (indexProposed.get(proposer) < proposer.roommatePreferences.size()) {
+                        unPairedStudent.offer(proposer);
+                    }
                 }
             }
         }
@@ -76,33 +112,22 @@ public class GaleShapley {
     }
 
     /**
-     * This method checks if the candidate prefers the new proposed roommate over 
-     * the current roommate.
-     * @param candidate the candidate student.
-     * @param newProposedRoommate  the new proposed roommate.
-     * @param currentRoommate the current roommate.
-     * @return true if the candidate prefers the new proposed roommate, false otherwise.
-     */
-    private static boolean prefers (UniversityStudent candidate, UniversityStudent newProposedRoommate, UniversityStudent currentRoommate) {
-        List<String> roommatePrefs = candidate.roommatePreferences;
-        int newRoommateIndex = roommatePrefs.indexOf(newProposedRoommate.name);
-        int currentRoommateIndex = roommatePrefs.indexOf(currentRoommate.name);
-
-        return newRoommateIndex < currentRoommateIndex;
-    }
-
-    /**
      * This method prints the final roommate assignments.
      * 
      * @param studentPairFinal the map of final student pairings.
      */
     private static void printFinalRoomateAssignment(Map<UniversityStudent, UniversityStudent> studentPairFinal) {
-        System.out.println("Roommate Assignments:");
+        System.out.println("Roommate Pairings (Gale-Shapley):");
 
         // Iterate through the studentPairFinal map and print the roommate assignments.
+        Set<UniversityStudent> printed = new HashSet<>();
         for (UniversityStudent student : studentPairFinal.keySet()) {
-            UniversityStudent partner = studentPairFinal.get(student);
-            System.out.println(student.name + " is roommates with " + partner.name);
+            UniversityStudent roommate = studentPairFinal.get(student);
+            if (!printed.contains(student) && !printed.contains(roommate)) {
+                System.out.println(student.name + " is paired with " + roommate.name);
+                printed.add(student);
+                printed.add(roommate);
+            }
         }
 
     }

@@ -1,3 +1,6 @@
+
+import java.util.concurrent.Semaphore;
+
 /**
  * This implements threading and synchronization support for the FriendRequest function of the
  * Longhorn Network program.
@@ -6,6 +9,12 @@
  */
 public class FriendRequestThread implements Runnable {
 
+    private UniversityStudent sender;
+
+    private UniversityStudent receiver;
+
+    private static final Semaphore semaphore = new Semaphore(1);
+
     /**
      * This implements threading for a friend request.
      *
@@ -13,7 +22,9 @@ public class FriendRequestThread implements Runnable {
      * @param receiver Student B receiving Student A's request.
      */
     public FriendRequestThread(UniversityStudent sender, UniversityStudent receiver) {
-        // Constructor
+        // Constructor method
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     /**
@@ -22,6 +33,17 @@ public class FriendRequestThread implements Runnable {
      */
     @Override
     public void run() {
-        // Method signature only
+        try {
+            semaphore.acquire();
+
+            // Simulating sending a friend request
+            System.out.println(sender.name + " sent a friend request to " + receiver.name);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("FriendRequestThread interrupted: " + e.getMessage());
+        } finally {
+            // Release the semaphore
+            semaphore.release();
+        }
     }
 }

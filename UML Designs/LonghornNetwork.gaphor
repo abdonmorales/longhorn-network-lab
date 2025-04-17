@@ -442,11 +442,12 @@ Also StudentGraph is not implemented.</val>
 <ref refid="87972f20-090b-11f0-b051-b56528d019b5"/>
 <ref refid="d3b86dd8-090b-11f0-8088-b56528d019b5"/>
 <ref refid="08be6c80-090c-11f0-b795-b56528d019b5"/>
-<ref refid="4606dc1b-090d-11f0-bf8c-b56528d019b5"/>
 <ref refid="9f8effea-090c-11f0-8c10-b56528d019b5"/>
 <ref refid="d770141f-090c-11f0-90ee-b56528d019b5"/>
 <ref refid="09632aed-090d-11f0-9532-b56528d019b5"/>
+<ref refid="4606dc1b-090d-11f0-bf8c-b56528d019b5"/>
 <ref refid="9d2cc119-090d-11f0-828b-b56528d019b5"/>
+<ref refid="50a83fcf-1a6f-11f0-a927-4778427d499c"/>
 <ref refid="732a83d7-090b-11f0-80cf-b56528d019b5"/>
 <ref refid="ef0b103e-090b-11f0-9aec-b56528d019b5"/>
 <ref refid="05fb6043-090e-11f0-8735-b56528d019b5"/>
@@ -661,10 +662,17 @@ Also StudentGraph is not implemented.</val>
 <name>
 <val>UniversityStudent</val>
 </name>
+<ownedAttribute>
+<reflist>
+<ref refid="32f4a9fd-1a70-11f0-92fa-4778427d499c"/>
+</reflist>
+</ownedAttribute>
 <ownedOperation>
 <reflist>
 <ref refid="d4c4057e-090a-11f0-b21a-b56528d019b5"/>
 <ref refid="11624092-090b-11f0-beb9-b56528d019b5"/>
+<ref refid="5aaa1fb1-1a70-11f0-85a1-4778427d499c"/>
+<ref refid="62977ce4-1a70-11f0-8702-4778427d499c"/>
 </reflist>
 </ownedOperation>
 <presentation>
@@ -684,7 +692,7 @@ Also StudentGraph is not implemented.</val>
 <val>1115.0</val>
 </width>
 <height>
-<val>91.0</val>
+<val>142.0</val>
 </height>
 <diagram>
 <ref refid="29ee5b00-0909-11f0-b77e-b56528d019b5"/>
@@ -1249,6 +1257,7 @@ Also StudentGraph is not implemented.</val>
 <ownedOperation>
 <reflist>
 <ref refid="fe29c2a6-090c-11f0-a9e9-b56528d019b5"/>
+<ref refid="f2e90a9a-1a6f-11f0-bc3a-4778427d499c"/>
 </reflist>
 </ownedOperation>
 <presentation>
@@ -1268,7 +1277,7 @@ Also StudentGraph is not implemented.</val>
 <val>445.0</val>
 </width>
 <height>
-<val>66.0</val>
+<val>83.0</val>
 </height>
 <diagram>
 <ref refid="29ee5b00-0909-11f0-b77e-b56528d019b5"/>
@@ -1340,7 +1349,7 @@ Also StudentGraph is not implemented.</val>
 </UML:Class>
 <UML:ClassItem id="09632aed-090d-11f0-9532-b56528d019b5">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 489.4213293078001, 224.0)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 489.4213293078001, 239.4999771118164)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -1431,6 +1440,11 @@ Also StudentGraph is not implemented.</val>
 <name>
 <val>ReferralPathFinder</val>
 </name>
+<ownedAttribute>
+<reflist>
+<ref refid="abd92655-1a6f-11f0-bff5-4778427d499c"/>
+</reflist>
+</ownedAttribute>
 <ownedOperation>
 <reflist>
 <ref refid="5f9e8092-090d-11f0-9318-b56528d019b5"/>
@@ -1445,7 +1459,7 @@ Also StudentGraph is not implemented.</val>
 </UML:Class>
 <UML:ClassItem id="4606dc1b-090d-11f0-bf8c-b56528d019b5">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 576.1011370025124, 322.5000305175781)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 551.1011370025124, 329.5000305175781)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -1551,6 +1565,20 @@ Also StudentGraph is not implemented.</val>
 <name>
 <val>StudentGraph</val>
 </name>
+<ownedAttribute>
+<reflist>
+<ref refid="871c2729-1a6e-11f0-a927-4778427d499c"/>
+</reflist>
+</ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="a249ddcd-1a6e-11f0-92b0-4778427d499c"/>
+<ref refid="ae9f63a5-1a6e-11f0-8d12-4778427d499c"/>
+<ref refid="c624f2fb-1a6e-11f0-99ff-4778427d499c"/>
+<ref refid="1fb825ec-1a6f-11f0-9f79-4778427d499c"/>
+<ref refid="4890efc4-1a6f-11f0-8c38-4778427d499c"/>
+</reflist>
+</ownedOperation>
 <presentation>
 <reflist>
 <ref refid="9d2cc119-090d-11f0-828b-b56528d019b5"/>
@@ -1559,26 +1587,20 @@ Also StudentGraph is not implemented.</val>
 </UML:Class>
 <UML:ClassItem id="9d2cc119-090d-11f0-828b-b56528d019b5">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 797.4212835314329, 236.9999999999999)</val>
+<val>(1.0, 0.0, 0.0, 1.0, -76.49993896484375, 578.2108903148446)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>118.0</val>
+<val>619.0</val>
 </width>
 <height>
-<val>57.0</val>
+<val>159.0</val>
 </height>
 <diagram>
 <ref refid="29ee5b00-0909-11f0-b77e-b56528d019b5"/>
 </diagram>
-<show_attributes>
-<val>0</val>
-</show_attributes>
-<show_operations>
-<val>0</val>
-</show_operations>
 <subject>
 <ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
 </subject>
@@ -1600,5 +1622,446 @@ Also StudentGraph is not implemented.</val>
 <val>[(0.0, 43.472804730466805), (0.0, 0.0)]</val>
 </points>
 </UML:IncludeItem>
+<UML:Property id="871c2729-1a6e-11f0-a927-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>-adjacencyList: Map&lt;UniversityStudent, List&lt;Edge&gt;&gt;</val>
+</name>
+</UML:Property>
+<UML:Operation id="a249ddcd-1a6e-11f0-92b0-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>StudentGraph</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="a24cee8b-1a6e-11f0-b8ec-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="a24cee8b-1a6e-11f0-b8ec-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>students</val>
+</name>
+<ownerFormalParam>
+<ref refid="a249ddcd-1a6e-11f0-92b0-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>List&lt;UniversityStudent&gt;</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="ae9f63a5-1a6e-11f0-8d12-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>displayGraph</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="aea2d082-1a6e-11f0-8369-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="aea2d082-1a6e-11f0-8369-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="ae9f63a5-1a6e-11f0-8d12-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>void</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="c624f2fb-1a6e-11f0-99ff-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>addEdge</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="c628854c-1a6e-11f0-a5b9-4778427d499c"/>
+<ref refid="c62ac011-1a6e-11f0-b84e-4778427d499c"/>
+<ref refid="c62c8204-1a6e-11f0-9cb1-4778427d499c"/>
+<ref refid="c62ea8d8-1a6e-11f0-b113-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="c628854c-1a6e-11f0-a5b9-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="c624f2fb-1a6e-11f0-99ff-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>void</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="c62ac011-1a6e-11f0-b84e-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>studentA</val>
+</name>
+<ownerFormalParam>
+<ref refid="c624f2fb-1a6e-11f0-99ff-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="c62c8204-1a6e-11f0-9cb1-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>studentB</val>
+</name>
+<ownerFormalParam>
+<ref refid="c624f2fb-1a6e-11f0-99ff-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="c62ea8d8-1a6e-11f0-b113-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>weight</val>
+</name>
+<ownerFormalParam>
+<ref refid="c624f2fb-1a6e-11f0-99ff-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>int</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="1fb825ec-1a6f-11f0-9f79-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>getNeighbors</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="1fbb2936-1a6f-11f0-9e9c-4778427d499c"/>
+<ref refid="1fbc4515-1a6f-11f0-96ad-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="1fbb2936-1a6f-11f0-9e9c-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="1fb825ec-1a6f-11f0-9f79-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>List&lt;Edge&gt;</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="1fbc4515-1a6f-11f0-96ad-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>student</val>
+</name>
+<ownerFormalParam>
+<ref refid="1fb825ec-1a6f-11f0-9f79-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="4890efc4-1a6f-11f0-8c38-4778427d499c">
+<class_>
+<ref refid="9d2bf49d-090d-11f0-a021-b56528d019b5"/>
+</class_>
+<name>
+<val>getAllNodes</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="48941562-1a6f-11f0-b76d-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="48941562-1a6f-11f0-b76d-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="4890efc4-1a6f-11f0-8c38-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>Set&lt;UniversityStudent&gt;</val>
+</typeValue>
+</UML:Parameter>
+<UML:Class id="50a767e8-1a6f-11f0-a927-4778427d499c">
+<name>
+<val>Edge</val>
+</name>
+<ownedAttribute>
+<reflist>
+<ref refid="60f44038-1a6f-11f0-baea-4778427d499c"/>
+<ref refid="65c8838b-1a6f-11f0-90ec-4778427d499c"/>
+</reflist>
+</ownedAttribute>
+<ownedOperation>
+<reflist>
+<ref refid="7bf6d207-1a6f-11f0-b6a8-4778427d499c"/>
+<ref refid="8648e715-1a6f-11f0-b4b2-4778427d499c"/>
+</reflist>
+</ownedOperation>
+<presentation>
+<reflist>
+<ref refid="50a83fcf-1a6f-11f0-a927-4778427d499c"/>
+</reflist>
+</presentation>
+</UML:Class>
+<UML:ClassItem id="50a83fcf-1a6f-11f0-a927-4778427d499c">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 578.9213293078001, 595.2108903148445)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>350.0</val>
+</width>
+<height>
+<val>125.0</val>
+</height>
+<diagram>
+<ref refid="29ee5b00-0909-11f0-b77e-b56528d019b5"/>
+</diagram>
+<subject>
+<ref refid="50a767e8-1a6f-11f0-a927-4778427d499c"/>
+</subject>
+</UML:ClassItem>
+<UML:Property id="60f44038-1a6f-11f0-baea-4778427d499c">
+<class_>
+<ref refid="50a767e8-1a6f-11f0-a927-4778427d499c"/>
+</class_>
+<name>
+<val>neighbor</val>
+</name>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Property>
+<UML:Property id="65c8838b-1a6f-11f0-90ec-4778427d499c">
+<class_>
+<ref refid="50a767e8-1a6f-11f0-a927-4778427d499c"/>
+</class_>
+<name>
+<val>weight</val>
+</name>
+<typeValue>
+<val>int</val>
+</typeValue>
+</UML:Property>
+<UML:Operation id="7bf6d207-1a6f-11f0-b6a8-4778427d499c">
+<class_>
+<ref refid="50a767e8-1a6f-11f0-a927-4778427d499c"/>
+</class_>
+<name>
+<val>Edge</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="7bf9cb56-1a6f-11f0-a274-4778427d499c"/>
+<ref refid="7bfafdb5-1a6f-11f0-88b0-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="7bf9cb56-1a6f-11f0-a274-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>neighbor</val>
+</name>
+<ownerFormalParam>
+<ref refid="7bf6d207-1a6f-11f0-b6a8-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="7bfafdb5-1a6f-11f0-88b0-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>weight</val>
+</name>
+<ownerFormalParam>
+<ref refid="7bf6d207-1a6f-11f0-b6a8-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>int</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="8648e715-1a6f-11f0-b4b2-4778427d499c">
+<class_>
+<ref refid="50a767e8-1a6f-11f0-a927-4778427d499c"/>
+</class_>
+<name>
+<val>toString</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="864ae3a6-1a6f-11f0-8157-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="864ae3a6-1a6f-11f0-8157-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="8648e715-1a6f-11f0-b4b2-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>String</val>
+</typeValue>
+</UML:Parameter>
+<UML:Property id="abd92655-1a6f-11f0-bff5-4778427d499c">
+<class_>
+<ref refid="4605e1f1-090d-11f0-8f5e-b56528d019b5"/>
+</class_>
+<name>
+<val>graph</val>
+</name>
+<typeValue>
+<val>StudentGraph</val>
+</typeValue>
+<visibility>
+<val>private</val>
+</visibility>
+</UML:Property>
+<UML:Operation id="f2e90a9a-1a6f-11f0-bc3a-4778427d499c">
+<class_>
+<ref refid="d76f612a-090c-11f0-822a-b56528d019b5"/>
+</class_>
+<isStatic>
+<val>1</val>
+</isStatic>
+<name>
+<val>printFinalRoommateAssignment</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="f2ece4c3-1a6f-11f0-8d17-4778427d499c"/>
+<ref refid="f2ee2a20-1a6f-11f0-9cc0-4778427d499c"/>
+</reflist>
+</ownedParameter>
+<visibility>
+<val>private</val>
+</visibility>
+</UML:Operation>
+<UML:Parameter id="f2ece4c3-1a6f-11f0-8d17-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="f2e90a9a-1a6f-11f0-bc3a-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>void</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="f2ee2a20-1a6f-11f0-9cc0-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>studentPairFinal</val>
+</name>
+<ownerFormalParam>
+<ref refid="f2e90a9a-1a6f-11f0-bc3a-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>Map</val>
+</typeValue>
+</UML:Parameter>
+<UML:Property id="32f4a9fd-1a70-11f0-92fa-4778427d499c">
+<class_>
+<ref refid="ade01b64-090a-11f0-b1dc-b56528d019b5"/>
+</class_>
+<name>
+<val>roommate</val>
+</name>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+<visibility>
+<val>private</val>
+</visibility>
+</UML:Property>
+<UML:Operation id="5aaa1fb1-1a70-11f0-85a1-4778427d499c">
+<class_>
+<ref refid="ade01b64-090a-11f0-b1dc-b56528d019b5"/>
+</class_>
+<name>
+<val>setRoommate</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="5aad51d4-1a70-11f0-90a6-4778427d499c"/>
+<ref refid="5aaea38d-1a70-11f0-9372-4778427d499c"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="5aad51d4-1a70-11f0-90a6-4778427d499c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="5aaa1fb1-1a70-11f0-85a1-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>void</val>
+</typeValue>
+</UML:Parameter>
+<UML:Parameter id="5aaea38d-1a70-11f0-9372-4778427d499c">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>roommate</val>
+</name>
+<ownerFormalParam>
+<ref refid="5aaa1fb1-1a70-11f0-85a1-4778427d499c"/>
+</ownerFormalParam>
+<typeValue>
+<val>UniversityStudent</val>
+</typeValue>
+</UML:Parameter>
+<UML:Operation id="62977ce4-1a70-11f0-8702-4778427d499c">
+<class_>
+<ref refid="ade01b64-090a-11f0-b1dc-b56528d019b5"/>
+</class_>
+<name>
+<val>getRoommate</val>
+</name>
+</UML:Operation>
 </model>
 </gaphor>

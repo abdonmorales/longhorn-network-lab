@@ -90,6 +90,7 @@ public class LonghornNetworkGUI {
                 NetworkLabUI.main(null);
             }
         });
+        buttonPanel.add(runTestCasesButton);
 
         // Now add panels to the frame/window.
         frame.add(searchPanel, BorderLayout.CENTER);

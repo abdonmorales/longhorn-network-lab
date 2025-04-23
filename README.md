@@ -74,7 +74,7 @@ Follow the steps below to implement the core functionality of the Longhorn Netwo
   - Incorrect formatting in input file (e.g., missing `:` separator).
 
 ---
-### Step 4: Implement Core Components DUE DATE FOR EVERYTHING BELOW: Apr 16th, 2024 11:59pm
+### Step 4: Implement Core Components DUE DATE FOR EVERYTHING BELOW: Apr 18th, 2024 11:59pm
 
 ---
 
@@ -258,7 +258,17 @@ Test your graph implementation before using it in algorithms:
 
 #### SWING UI
 
-##### An implementation of an user interface using Swing UI. An easy implementation would be to visualize the student graph as either an adjacency list or adjacency matrix, as well as visualizing the roommates,   formations. More directions on SWING UI will be released on April 16th. 
+##### An implementation of an user interface using Swing UI. An easy implementation would be to visualize the student graph as either an adjacency list or adjacency matrix, as well as visualizing the roommates,   formations.
+
+**Video Script for 2-4 minute video to be turned in on Apr 30th, 2024 11:59pm**
+   - Loading data from Main.java. Use the given main.java to load data. This can be displayed by simply showing the different test cases being loaded once the UI loads up. [20 points]
+   - Visualize the data as a graph. Display a graph that shows students and their names and connections as weighted edges. Must be displayed as a graph. [30 points]
+   - Visualize roommates within the [15 points]
+   - Visualize the referral path finder [15 points]
+   - Visualize each student's friend request and chat history. If 'None' then show 'None'. [10 points]
+   - Intuitive & Friendly User Interface. Is the user interface intuitive to use, are their load data, filter data by student, run buttons or equivalents? Is the user interface just one or two monotone colors or vibrant? [10 points]
+
+Of note: the last point is subjective and thus is only worth 10 points out of the total 100 of your grade. Mainly we want to evaluate the amount of effort your provided to the final part of this lab.   
 
 ### Notes for Students
 - The `StudentGraph` class provides the foundation for both   formation and referral path finding. Ensure your implementation is robust and efficient.

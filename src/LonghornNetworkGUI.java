@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -425,6 +422,11 @@ public class LonghornNetworkGUI {
                     Point p2 = coord.get(vertex);
                     g2d.drawLine(p1.x + NODE_SIZE/2, p1.y + NODE_SIZE/2,
                             p2.x + NODE_SIZE/2, p2.y + NODE_SIZE/2);
+                    int midpointX = ((p1.x + NODE_SIZE/2) + (p2.x + NODE_SIZE/2))/2;
+                    int midpointY = ((p1.y + NODE_SIZE/2) + (p2.y + NODE_SIZE/2))/2;
+                    String weight = String.valueOf(edge.weight);
+                    g2d.setColor(Color.BLACK);
+                    g2d.drawString(weight, midpointX, midpointY);
                 }
             }
 
@@ -479,6 +481,11 @@ public class LonghornNetworkGUI {
             StudentInformationPanel.add(studentInfoTextArea);
             tabbedPane.addTab("Student Information", StudentInformationPanel);
 
+            // Create the student roommate pairs page
+            JPanel roommatePairsPanel = new JPanel();
+            roommatePairsPanel.setBackground(panelColor);
+
+            tabbedPane.addTab("Roommate Pairs", roommatePairsPanel);
 
             // Create the student's referral page
             JPanel ReferralPanel = new JPanel();
@@ -492,8 +499,66 @@ public class LonghornNetworkGUI {
             tabbedPane.addTab("Chats", ChatPanel);
 
             // Create the student's friends page
-            JPanel FriendsPanel = new JPanel();
+            JPanel FriendsPanel = new JPanel(new BorderLayout());
             FriendsPanel.setBackground(panelColor);
+
+            // Build the available friends list, and make sure that people from my Friends
+            // are not already in the available friends.
+            DefaultListModel<String> availableFriends = new DefaultListModel<>();
+            for (UniversityStudent s : studentData) {
+                if (s.name.equalsIgnoreCase(student.name)) continue;
+                availableFriends.addElement(s.name);
+            }
+            for (String name : student.getFriends()) {
+                availableFriends.removeElement(name);
+            }
+            JList<String> availableFriendsList = new JList<>(availableFriends);
+            // Create the list for the user's my friends.
+            DefaultListModel<String> myFriendsListModel = new DefaultListModel<>();
+            student.getFriends().forEach(myFriendsListModel::addElement);
+            JList<String> myFriendsList = new JList<>(myFriendsListModel);
+
+            // Create the UI for the friends tab with split panes for my Friends and
+            // Available Friends.
+            JScrollPane myFriendsScrollPane = new JScrollPane(myFriendsList);
+            myFriendsScrollPane.setBorder(BorderFactory.createTitledBorder("My Friends"));
+            JScrollPane availableFriendsScrollPane = new JScrollPane(availableFriendsList);
+            availableFriendsScrollPane.setBorder(BorderFactory.createTitledBorder("Available Friends"));
+            JSplitPane friendsPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, myFriendsScrollPane
+            , availableFriendsScrollPane);
+            friendsPane.setResizeWeight(0.5);
+            friendsPane.setContinuousLayout(true);
+            FriendsPanel.add(friendsPane, BorderLayout.CENTER);
+            availableFriendsList.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int index = availableFriendsList.locationToIndex(e.getPoint());
+                    if (index >= 0) {
+                        String selectedName = availableFriends.getElementAt(index);
+                        int frendReq = JOptionPane.showConfirmDialog(FriendsPanel, "Send " +
+                                "friend request to " + selectedName + "?", "Friend Request",
+                                JOptionPane.YES_NO_OPTION);
+                        // If the user does for a fact want to send a friend request, then do it.
+                        if (frendReq == JOptionPane.YES_OPTION) {
+                            UniversityStudent receiver = null;
+                            for (UniversityStudent s : studentData) {
+                                // If the name/friend is found, then break.
+                                if (s.name.equalsIgnoreCase(selectedName)) {
+                                    receiver = s;
+                                    break;
+                                }
+                            }
+                            // If the student is found then run the fr. req thread and updated
+                            // the list.
+                            if (receiver != null) {
+                                new Thread(new FriendRequestThread(student, receiver)).start();
+                                myFriendsListModel.addElement(selectedName);
+                                availableFriends.removeElementAt(index);
+                            }
+                        }
+                    }
+                }
+            });
             tabbedPane.addTab("Friends", FriendsPanel);
             tabbedPane.setBackground(new Color(191, 87, 0));
             window.add(tabbedPane);
@@ -537,6 +602,6 @@ public class LonghornNetworkGUI {
      * @see LonghornNetworkGUI
      */
     public static void main(String[] args) {
-        new LonghornNetworkGUI();
+        SwingUtilities.invokeLater(LonghornNetworkGUI::new);
     }
 }

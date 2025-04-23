@@ -9,6 +9,8 @@ import java.util.*;
 public class UniversityStudent extends Student {
     /** Store the assigned roommate */
     private UniversityStudent roommate;
+    /** */
+    private ArrayList<String> friends;
 
     /**
      * A method that calculates a student's connection strength between student A and Student B.
@@ -73,6 +75,7 @@ public class UniversityStudent extends Student {
         this.roommatePreferences = roommatePrefs;
         this.previousInternships = previousInterns;
         this.roommate = null;
+        this.friends = new ArrayList<>();
     }
 
     /**
@@ -90,6 +93,30 @@ public class UniversityStudent extends Student {
      */
     public UniversityStudent getRoommate() {
         return roommate;
+    }
+
+    /**
+     *
+     * @param friend
+     */
+    public void addFriend(String friend) {
+        this.friends.add(friend);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<String> getFriends() {
+        return friends;
+    }
+
+    /**
+     *
+     * @param friend
+     */
+    public void removeFriend(String friend) {
+        this.friends.remove(friend);
     }
 
     /**

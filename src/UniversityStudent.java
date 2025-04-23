@@ -9,7 +9,7 @@ import java.util.*;
 public class UniversityStudent extends Student {
     /** Store the assigned roommate */
     private UniversityStudent roommate;
-    /** */
+    /** The ArrayList of friends, in the form of Strings which are their names. */
     private ArrayList<String> friends;
 
     /**
@@ -22,6 +22,7 @@ public class UniversityStudent extends Student {
     public int calculateConnectionStrength(Student other) {
         int connectionStrength = 0;
         
+        // Check if the other student is an instance of UniversityStudent
         if (other instanceof UniversityStudent) {
             UniversityStudent otherStudent = (UniversityStudent) other;
 
@@ -96,24 +97,26 @@ public class UniversityStudent extends Student {
     }
 
     /**
-     *
-     * @param friend
+     * This method adds a friend to the list of friends for this student
+     * @param friend, the name of the friend to be added
      */
     public void addFriend(String friend) {
         this.friends.add(friend);
     }
 
     /**
-     *
-     * @return
+     * This method gets the list of friends for this student
+     * @return friends, the ArrayList of friends for this student
      */
     public ArrayList<String> getFriends() {
         return friends;
     }
 
     /**
-     *
-     * @param friend
+     * This method removes a friend from the list of friends for this student.
+     * <p><b>NOTE: This method is not called, but I implemented it if I ever 
+     * want to expand the functionality of the program in the future.</b></p>
+     * @param friend the name of the friend to be removed
      */
     public void removeFriend(String friend) {
         this.friends.remove(friend);

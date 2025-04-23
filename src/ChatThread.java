@@ -7,13 +7,16 @@ import java.util.concurrent.Semaphore;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923.
  */
 public class ChatThread implements Runnable {
-
+    /** The student sending the message */
     private UniversityStudent sender;
 
+    /** The student receiving the message */
     private UniversityStudent receiver;
 
+    /** The message being sent */
     private String message;
 
+    /** Semaphore to control access to the chat thread and to perform concurrency */
     private static final Semaphore semaphore = new Semaphore(1);
 
     /**

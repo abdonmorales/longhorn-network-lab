@@ -8,11 +8,13 @@ import java.util.concurrent.Semaphore;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public class FriendRequestThread implements Runnable {
-
+    /** The student sending the friend request. */
     private UniversityStudent sender;
 
+    /** The student receiving the friend request */
     private UniversityStudent receiver;
 
+    /** A semaphore for concurrency. */
     private static final Semaphore semaphore = new Semaphore(1);
 
     /**

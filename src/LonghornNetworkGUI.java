@@ -80,6 +80,17 @@ public class LonghornNetworkGUI {
         dispStudentGraphButton.addActionListener(studentGraph());
         buttonPanel.add(dispStudentGraphButton);
 
+        // Run Test Cases button, in other words, run Ayush's test cases.
+        JButton runTestCasesButton = new JButton("Run Test Cases");
+        runTestCasesButton.setContentAreaFilled(true);
+        runTestCasesButton.setBackground(new Color(191, 87, 0));
+        runTestCasesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                NetworkLabUI.main(null);
+            }
+        });
+
         // Now add panels to the frame/window.
         frame.add(searchPanel, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -471,6 +482,7 @@ public class LonghornNetworkGUI {
             // Create the student's referral page
             JPanel ReferralPanel = new JPanel();
             ReferralPanel.setBackground(panelColor);
+            
             tabbedPane.addTab("Referrals", ReferralPanel);
 
             // Create the student's chat page

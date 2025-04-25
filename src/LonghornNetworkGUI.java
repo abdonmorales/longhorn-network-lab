@@ -16,12 +16,43 @@ import java.util.List;
  * @version 1.0 Beta
  */
 public class LonghornNetworkGUI {
+    /**
+     * This is the frame/window that will be used 
+     * to display the GUI and Startpage.
+     */
     private JFrame frame;
+
+    /**
+     * This is the width of the window.
+     */
     private final int WINDOW_WIDTH = 800;
+
+    /**
+     * This is the height of the window.
+     */
     private final int WINDOW_HEIGTH = 600;
+
+    /**
+     * This is the list of students that will be in 
+     * many of the components of the application.
+     */
     private List<UniversityStudent> studentData;
+
+    /**
+     * This is the graph that will be used to display 
+     * the students and their weighted edges.
+     */
     private StudentGraph graph;
+
+    /**
+     * This is where the file from the file chooser will be used to stored,
+     *  load the student data.
+     */
     private java.io.File file;
+
+    /**
+     * This is the placeholder text for the search bar.
+     */
     final String placeholder = "Enter a name here and click Search";
 
     /// The private and public methods fo LonghornNetworkGUI begin here.

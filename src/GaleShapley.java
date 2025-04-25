@@ -107,8 +107,8 @@ public class GaleShapley {
             }
         }
 
-        // Print the final roommate assignments.
-        printFinalRoommateAssignment(studentPair);
+        // Print the final roommate assignments. In able it for logging to the terminal.
+        //printFinalRoommateAssignment(studentPair);
     }
 
     /**

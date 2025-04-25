@@ -488,9 +488,69 @@ public class LonghornNetworkGUI {
             tabbedPane.addTab("Roommate Pairs", roommatePairsPanel);
 
             // Create the student's referral page
-            JPanel ReferralPanel = new JPanel();
+            JPanel ReferralPanel = new JPanel(new BorderLayout());
             ReferralPanel.setBackground(panelColor);
-            
+            JPanel controls = new JPanel();
+            JTextField targetCompanyField = new JTextField(10);
+            JButton findButton = new JButton("Find Path");
+            findButton.addActionListener(e -> {
+
+                // Check if the target company field is empty or null
+                if (targetCompanyField.getText().isEmpty() || targetCompanyField.getText() == null) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid company name");
+                    return;
+                }
+                ReferralPathFinder rpf = new ReferralPathFinder(graph);
+                List<UniversityStudent> referrals = rpf.findReferralPath(student,
+                        targetCompanyField.getText());
+                // If the referrals list is empty, then show an error message dialog.
+                if (referrals.isEmpty()) {
+                    JOptionPane.showMessageDialog(window,
+                            "No Referrals found for " + targetCompanyField.getText()+".\n" +
+                                    "Please try again.",
+                            "No Referrals Found", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                    ReferralPanel.removeAll();
+                    ReferralPanel.add(controls, BorderLayout.NORTH);
+
+                    JPanel referralPathPanel = new JPanel();
+                    referralPathPanel.setLayout(new BoxLayout(referralPathPanel, BoxLayout.X_AXIS));
+                    referralPathPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
+                    // Iterate through the referrals and create a node for each one
+                    // In other words, add the graphical interpretation of the referral path.
+                    for (int i = 0; i < referrals.size(); i++) {
+                        UniversityStudent s = referrals.get(i);
+
+                        // Create node box
+                        JPanel nodePanel = new JPanel(new BorderLayout());
+                        nodePanel.setPreferredSize(new Dimension(40, 40));
+                        nodePanel.setMaximumSize(nodePanel.getPreferredSize());
+                        nodePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                        JLabel nameLabel = new JLabel(s.name, SwingConstants.CENTER);
+                        nameLabel.setFont(nameLabel.getFont().deriveFont(12f));
+                        nodePanel.add(nameLabel, BorderLayout.CENTER);
+                        referralPathPanel.add(nodePanel);
+
+                        // Add spacing between nodes
+                        if (i + 1 < referrals.size()) {
+                            referralPathPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+                            JLabel arrow = new JLabel("->", SwingConstants.CENTER);
+                            arrow.setFont(arrow.getFont().deriveFont(18f));
+                            referralPathPanel.add(arrow);
+                            referralPathPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+                        }
+                    }
+
+                    ReferralPanel.add(referralPathPanel);
+                    ReferralPanel.revalidate();
+                    ReferralPanel.repaint();
+            });
+            controls.add(new JLabel("Target Company:"));
+            controls.add(targetCompanyField);
+            controls.add(findButton);
+            ReferralPanel.add(controls, BorderLayout.NORTH);
             tabbedPane.addTab("Referrals", ReferralPanel);
 
             // Create the student's chat page

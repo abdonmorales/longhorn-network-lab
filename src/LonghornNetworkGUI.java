@@ -3,8 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -51,12 +50,16 @@ public class LonghornNetworkGUI {
         JPanel searchPanel = new JPanel();
         // Use a vertical BoxLayout so the label appears above the text field
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.Y_AXIS));
-        JLabel searchLabel = new JLabel("NOTE! Load the file first, before searching or " +
+        JLabel label1 = new JLabel("NOTE! Load the file first, before searching or " +
                 "displaying the graph!");
-        searchLabel.setFont(searchLabel.getFont().deriveFont(14f));
-        searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel label2 = new JLabel("Enter a student name:");
+        label1.setFont(label1.getFont().deriveFont(Font.BOLD, 14f));
+        label2.setFont(label2.getFont().deriveFont( 14f));
+        label1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label2.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField searchField = getSearchField();
-        searchPanel.add(searchLabel);
+        searchPanel.add(label1);
+        searchPanel.add(label2);
         searchPanel.add(Box.createRigidArea(new Dimension(0, 5))); // small vertical gap
         searchPanel.add(searchField);
 
@@ -76,18 +79,6 @@ public class LonghornNetworkGUI {
         dispStudentGraphButton.setBackground(new Color(191, 87, 0));
         dispStudentGraphButton.addActionListener(studentGraph());
         buttonPanel.add(dispStudentGraphButton);
-
-        // Run Test Cases button, in other words, run Ayush's test cases.
-        JButton runTestCasesButton = new JButton("Run Test Cases");
-        runTestCasesButton.setContentAreaFilled(true);
-        runTestCasesButton.setBackground(new Color(191, 87, 0));
-        runTestCasesButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                NetworkLabUI.main(null);
-            }
-        });
-        buttonPanel.add(runTestCasesButton);
 
         // Now add panels to the frame/window.
         frame.add(searchPanel, BorderLayout.CENTER);
@@ -109,7 +100,7 @@ public class LonghornNetworkGUI {
      * @see FocusEvent
      */
     private JTextField getSearchField() {
-        JTextField searchField = new JTextField();
+        JTextField searchField = new JTextField(22);
         searchField.setAlignmentX(Component.CENTER_ALIGNMENT);
         searchField.setText(placeholder);
         Dimension fixedSize = searchField.getPreferredSize();
@@ -118,6 +109,7 @@ public class LonghornNetworkGUI {
         searchField.setForeground(Color.GRAY);
         searchField.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
+                // If the search field is focused and contains the placeholder text, clear it
                 if (searchField.getText().equals(placeholder)) {
                     searchField.setText("");
                     searchField.setForeground(Color.BLACK);
@@ -125,6 +117,7 @@ public class LonghornNetworkGUI {
             }
             @Override
             public void focusLost(FocusEvent e) {
+                // If the search field is not focused and is empty, set the placeholder text
                 if (searchField.getText().isEmpty()) {
                     searchField.setText(placeholder);
                     searchField.setForeground(Color.GRAY);
@@ -348,7 +341,7 @@ public class LonghornNetworkGUI {
      * This class implements the GraphPanel that 
      * displays the graph of students in a circular layout using 
      * a @see {@link java.util.HashMap} and ArrayLists to provide the maximum amount of 
-     * efficency and quick access times.
+     * efficiency and quick access times.
      * 
      * @author Abdon Morales, am226923, 
      * <a href="mailto:abdonmorales@my.utexas.edu">abdonmorales@my.utexas.edu</a>
@@ -452,7 +445,6 @@ public class LonghornNetworkGUI {
      * <a href="mailto:abdonmorales@my.utexas.edu">abdonmorales@my.utexas.edu</a>
      */
     private class UserInfoWindow {
-        Color panelColor = Color.WHITE;
         private static final int BORDER_PRESETS = 20;
 
         /**
@@ -474,24 +466,59 @@ public class LonghornNetworkGUI {
             JTabbedPane tabbedPane = new JTabbedPane();
 
             // Create the student's information page
-            JPanel StudentInformationPanel = new JPanel();
-            StudentInformationPanel.setBackground(panelColor);
-            JTextArea studentInfoTextArea = new JTextArea(BorderLayout.WEST);
+            JPanel headerPanel = new JPanel(new BorderLayout());
+            JLabel headerLabel = new JLabel("Student Information");
+            headerLabel.setFont(headerLabel.getFont().deriveFont(Font.BOLD, 18f));
+            JPanel studentInformationPanel = new JPanel(new BorderLayout());
+            studentInformationPanel.add(headerLabel, BorderLayout.NORTH);
+            headerPanel.add(headerLabel, BorderLayout.WEST);
+            JTextArea studentInfoTextArea = new JTextArea();
             studentInfoTextArea.setEditable(false);
-            studentInfoTextArea.setText("");
             displayStudentInfo(studentInfoTextArea,student);
-            StudentInformationPanel.add(studentInfoTextArea);
-            tabbedPane.addTab("Student Information", StudentInformationPanel);
+            studentInformationPanel.add(headerPanel, BorderLayout.NORTH);
+            JPanel centerPanel = new JPanel(new GridBagLayout());
+            centerPanel.add(studentInfoTextArea);
+            studentInformationPanel.add(centerPanel, BorderLayout.CENTER);
+            tabbedPane.addTab("Student Information", studentInformationPanel);
 
             // Create the student roommate pairs page
-            JPanel roommatePairsPanel = new JPanel();
-            roommatePairsPanel.setBackground(panelColor);
+            JPanel roommatePairsPanel = new JPanel(new BorderLayout());
+            JPanel roommateButtonPanel = new JPanel();
+            JButton pairRoommateButton = new JButton("Create Roommate Pairs");
+            pairRoommateButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    GaleShapley.assignRoommates(studentData);
+                    DefaultListModel<String> listModel = new DefaultListModel<>();
 
+                    // Iterate through the student data and add roommate pairs to the list model
+                    for (UniversityStudent s : studentData) {
+                        // If the student has a roommate, add the pair to the list model
+                        if (s.getRoommate() != null) {
+                            // Check if the student is paired with themselves or their roommate
+                            if (Objects.equals(student.name, s.name)) {
+                                listModel.addElement("You are paired with: " + s.getRoommate().name);
+                            } else if (Objects.equals(student.name, s.getRoommate().name)) {
+                                listModel.addElement(student.name + " is paired with you");
+                            } else {
+                                listModel.addElement(s.name + " is paired with: " + s.getRoommate().name);
+                            }
+                        }
+                    }
+                    JList<String> studentPairsList = new JList<>(listModel);
+                    JScrollPane scrollPane = new JScrollPane(studentPairsList);
+                    roommatePairsPanel.removeAll();
+                    roommatePairsPanel.add(roommateButtonPanel, BorderLayout.NORTH);
+                    roommatePairsPanel.add(scrollPane, BorderLayout.CENTER);
+                    roommatePairsPanel.revalidate();
+                    roommatePairsPanel.repaint();
+                }
+            });
+            roommateButtonPanel.add(pairRoommateButton);
+            roommatePairsPanel.add(roommateButtonPanel, BorderLayout.NORTH);
             tabbedPane.addTab("Roommate Pairs", roommatePairsPanel);
 
             // Create the student's referral page
             JPanel referralPanel = new JPanel(new BorderLayout());
-            referralPanel.setBackground(panelColor);
             JPanel controls = new JPanel();
             JTextField targetCompanyField = new JTextField(10);
             JButton findButton = new JButton("Find Path");
@@ -513,45 +540,45 @@ public class LonghornNetworkGUI {
                             "No Referrals Found", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                    referralPanel.removeAll();
-                    referralPanel.add(controls, BorderLayout.NORTH);
+                referralPanel.removeAll();
+                referralPanel.add(controls, BorderLayout.NORTH);
 
-                    JPanel referralPathPanel = new JPanel();
-                    referralPathPanel.setLayout(new BoxLayout(referralPathPanel, BoxLayout.X_AXIS));
-                    referralPathPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_PRESETS,
-                            BORDER_PRESETS,BORDER_PRESETS,BORDER_PRESETS));
+                JPanel referralPathPanel = new JPanel();
+                referralPathPanel.setLayout(new BoxLayout(referralPathPanel, BoxLayout.X_AXIS));
+                referralPathPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_PRESETS,
+                        BORDER_PRESETS, BORDER_PRESETS, BORDER_PRESETS));
 
-                    // Iterate through the referrals and create a node for each one
-                    // In other words, add the graphical interpretation of the referral path.
-                    for (int i = 0; i < referrals.size(); i++) {
-                        UniversityStudent s = referrals.get(i);
+                // Iterate through the referrals and create a node for each one
+                // In other words, add the graphical interpretation of the referral path.
+                for (int i = 0; i < referrals.size(); i++) {
+                    UniversityStudent s = referrals.get(i);
 
-                        // Create node box
-                        JPanel nodePanel = new JPanel(new BorderLayout());
-                        nodePanel.setPreferredSize(new Dimension(2*BORDER_PRESETS,
-                                2*BORDER_PRESETS));
-                        nodePanel.setMaximumSize(nodePanel.getPreferredSize());
-                        nodePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                        JLabel nameLabel = new JLabel(s.name, SwingConstants.CENTER);
-                        nameLabel.setFont(nameLabel.getFont().deriveFont(12f));
-                        nodePanel.add(nameLabel, BorderLayout.CENTER);
-                        referralPathPanel.add(nodePanel);
+                    // Create node box
+                    JPanel nodePanel = new JPanel(new BorderLayout());
+                    nodePanel.setPreferredSize(new Dimension(2 * BORDER_PRESETS,
+                            2 * BORDER_PRESETS));
+                    nodePanel.setMaximumSize(nodePanel.getPreferredSize());
+                    nodePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    JLabel nameLabel = new JLabel(s.name, SwingConstants.CENTER);
+                    nameLabel.setFont(nameLabel.getFont().deriveFont(12f));
+                    nodePanel.add(nameLabel, BorderLayout.CENTER);
+                    referralPathPanel.add(nodePanel);
 
-                        // Add spacing between nodes
-                        if (i + 1 < referrals.size()) {
-                            referralPathPanel.add(Box.createRigidArea(new Dimension(BORDER_PRESETS/2
-                                    , 0)));
-                            JLabel arrow = new JLabel("->", SwingConstants.CENTER);
-                            arrow.setFont(arrow.getFont().deriveFont(18f));
-                            referralPathPanel.add(arrow);
-                            referralPathPanel.add(Box.createRigidArea(new Dimension(BORDER_PRESETS/2
-                                    , 0)));
-                        }
+                    // Add spacing between nodes
+                    if (i + 1 < referrals.size()) {
+                        referralPathPanel.add(Box.createRigidArea(new Dimension(BORDER_PRESETS / 2
+                                , 0)));
+                        JLabel arrow = new JLabel("->", SwingConstants.CENTER);
+                        arrow.setFont(arrow.getFont().deriveFont(18f));
+                        referralPathPanel.add(arrow);
+                        referralPathPanel.add(Box.createRigidArea(new Dimension(BORDER_PRESETS / 2
+                                , 0)));
                     }
+                }
 
-                    referralPanel.add(referralPathPanel);
-                    referralPanel.revalidate();
-                    referralPanel.repaint();
+                referralPanel.add(referralPathPanel);
+                referralPanel.revalidate();
+                referralPanel.repaint();
             });
             controls.add(new JLabel("Target Company:"));
             controls.add(targetCompanyField);
@@ -561,12 +588,10 @@ public class LonghornNetworkGUI {
 
             // Create the student's chat page
             JPanel ChatPanel = new JPanel();
-            ChatPanel.setBackground(panelColor);
             tabbedPane.addTab("Chats", ChatPanel);
 
             // Create the student's friends page
             JPanel FriendsPanel = new JPanel(new BorderLayout());
-            FriendsPanel.setBackground(panelColor);
 
             // Build the available friends list, and make sure that people from my Friends
             // are not already in the available friends.
@@ -658,7 +683,7 @@ public class LonghornNetworkGUI {
             studentInfoTextArea.append("Year: " + student.year + "\n");
             studentInfoTextArea.append("GPA: " + student.gpa + "\n");
             studentInfoTextArea.append("Major: " + student.major + "\n");
-            studentInfoTextArea.setFont(studentInfoTextArea.getFont().deriveFont(14f));
+            studentInfoTextArea.setFont(studentInfoTextArea.getFont().deriveFont(24f));
         }
     }
 

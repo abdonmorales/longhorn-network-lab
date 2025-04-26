@@ -544,15 +544,16 @@ public class LonghornNetworkGUI {
 
                     // Iterate through the student data and add roommate pairs to the list model
                     for (UniversityStudent s : studentData) {
+                        UniversityStudent roommate = s.getRoommate();
                         // If the student has a roommate, add the pair to the list model
-                        if (s.getRoommate() != null) {
+                        if (roommate != null) {
                             // Check if the student is paired with themselves or their roommate
                             if (Objects.equals(student.name, s.name)) {
-                                listModel.addElement("You are paired with: " + s.getRoommate().name);
-                            } else if (Objects.equals(student.name, s.getRoommate().name)) {
-                                listModel.addElement(student.name + " is paired with you");
+                                listModel.addElement("You are paired with: " + roommate.name);
+                            } else if (Objects.equals(student.name, roommate.name)) {
+                                listModel.addElement(s.name + " is paired with you");
                             } else {
-                                listModel.addElement(s.name + " is paired with: " + s.getRoommate().name);
+                                listModel.addElement(s.name + " is paired with: " + roommate.name);
                             }
                         }
                     }

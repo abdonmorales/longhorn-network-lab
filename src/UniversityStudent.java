@@ -7,11 +7,11 @@ import java.util.*;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public class UniversityStudent extends Student {
-    /** Store the assigned roommate */
+    /** Store the assigned roommate. */
     private UniversityStudent roommate;
     /** The ArrayList of friends, in the form of Strings which are their names. */
     private ArrayList<String> friends;
-
+    /** This is a map that stores the chat histories between this student and other students. */
     private Map<String, List<String>> chatHistories;
 
     /**
@@ -68,7 +68,6 @@ public class UniversityStudent extends Student {
      */
     public UniversityStudent(String name, int age, String gender, int year, String major, double gpa,
                              List<String> roommatePrefs, List<String> previousInterns) {
-        // Is there a more proper way to simplify this? We need to reduce overhead.
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -125,17 +124,33 @@ public class UniversityStudent extends Student {
         this.friends.remove(friend);
     }
 
-
+    /**
+     * This method gets the chat history for this student and the other student they are chatting
+     * with.
+     * @param otherChatter, the name of the other student
+     * @return chatHistory, the list of chat messages between this student and the other student
+     */
     public List<String> getChatHistory(String otherChatter) {
         return chatHistories.computeIfAbsent(otherChatter, k -> new ArrayList<>());
     }
 
-
+    /**
+     * This method adds a chat message to the chat history for this student and the other student
+     * they are chatting with.
+     * @param otherChatter, the name of the other student
+     * @param message, the message to be added to the chat history
+     */
     public void addChatMessage(String otherChatter, String message) {
         getChatHistory(otherChatter).add(message);
     }
 
-
+    /**
+     * This method gets the chat histories for this student and other students that they have
+     * chatted with.
+     * <p><b>NOTE: This method is not called, but I implemented it if I ever
+     * want to expand the functionality of the program in the future.</b></p>
+     * @return chatHistories, the map of chat histories for this student
+     */
     public Map<String, List<String>> getChatHistories() {
         return chatHistories;
     }

@@ -7,13 +7,21 @@ import java.util.*;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public abstract class Student {
+    /** The name of the student. */
     protected String name;
+    /** The age of the student. */
     protected int age;
+    /** The gender of the student. */
     protected String gender;
+    /** The student's academic year */
     protected int year;
+    /** The student's major */
     protected String major;
+    /** The student's grade point average */
     protected double gpa;
+    /** The student's list of roommate preferences */
     protected List<String> roommatePreferences;
+    /** The student's list of previous internship(s) */
     protected List<String> previousInternships;
 
     /**

@@ -7,8 +7,12 @@ import java.util.*;
  * @author <a href="mailto:abdonmorales@my.utexas.edu">Abdon Morales</a>, am226923
  */
 public class UniversityStudent extends Student {
-    /** Store the assigned roommate */
+    /** Store the assigned roommate. */
     private UniversityStudent roommate;
+    /** The ArrayList of friends, in the form of Strings which are their names. */
+    private ArrayList<String> friends;
+    /** This is a map that stores the chat histories between this student and other students. */
+    private Map<String, List<String>> chatHistories;
 
     /**
      * A method that calculates a student's connection strength between student A and Student B.
@@ -20,6 +24,7 @@ public class UniversityStudent extends Student {
     public int calculateConnectionStrength(Student other) {
         int connectionStrength = 0;
         
+        // Check if the other student is an instance of UniversityStudent
         if (other instanceof UniversityStudent) {
             UniversityStudent otherStudent = (UniversityStudent) other;
 
@@ -63,7 +68,6 @@ public class UniversityStudent extends Student {
      */
     public UniversityStudent(String name, int age, String gender, int year, String major, double gpa,
                              List<String> roommatePrefs, List<String> previousInterns) {
-        // Is there a more proper way to simplify this? We need to reduce overhead.
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -73,6 +77,8 @@ public class UniversityStudent extends Student {
         this.roommatePreferences = roommatePrefs;
         this.previousInternships = previousInterns;
         this.roommate = null;
+        this.friends = new ArrayList<>();
+        this.chatHistories = new HashMap<>();
     }
 
     /**
@@ -92,6 +98,62 @@ public class UniversityStudent extends Student {
         return roommate;
     }
 
+    /**
+     * This method adds a friend to the list of friends for this student
+     * @param friend, the name of the friend to be added
+     */
+    public void addFriend(String friend) {
+        this.friends.add(friend);
+    }
+
+    /**
+     * This method gets the list of friends for this student
+     * @return friends, the ArrayList of friends for this student
+     */
+    public ArrayList<String> getFriends() {
+        return friends;
+    }
+
+    /**
+     * This method removes a friend from the list of friends for this student.
+     * <p><b>NOTE: This method is not called, but I implemented it if I ever 
+     * want to expand the functionality of the program in the future.</b></p>
+     * @param friend the name of the friend to be removed
+     */
+    public void removeFriend(String friend) {
+        this.friends.remove(friend);
+    }
+
+    /**
+     * This method gets the chat history for this student and the other student they are chatting
+     * with.
+     * @param otherChatter, the name of the other student
+     * @return chatHistory, the list of chat messages between this student and the other student
+     */
+    public List<String> getChatHistory(String otherChatter) {
+        return chatHistories.computeIfAbsent(otherChatter, k -> new ArrayList<>());
+    }
+
+    /**
+     * This method adds a chat message to the chat history for this student and the other student
+     * they are chatting with.
+     * @param otherChatter, the name of the other student
+     * @param message, the message to be added to the chat history
+     */
+    public void addChatMessage(String otherChatter, String message) {
+        getChatHistory(otherChatter).add(message);
+    }
+
+    /**
+     * This method gets the chat histories for this student and other students that they have
+     * chatted with.
+     * <p><b>NOTE: This method is not called, but I implemented it if I ever
+     * want to expand the functionality of the program in the future.</b></p>
+     * @return chatHistories, the map of chat histories for this student
+     */
+    public Map<String, List<String>> getChatHistories() {
+        return chatHistories;
+    }
     /**
      * Implements and overrides the toString method from the Object class. In our case, we modify
      * the toString in our own object for the purpose to display the data of the object rather

@@ -40,6 +40,7 @@ public class FriendRequestThread implements Runnable {
             // Simulating sending a friend request
             sender.addFriend(receiver.name);
             receiver.addFriend(sender.name);
+            // For logging purposes
             System.out.println(sender.name + " sent a friend request to " + receiver.name);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

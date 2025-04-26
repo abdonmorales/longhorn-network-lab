@@ -12,6 +12,8 @@ public class UniversityStudent extends Student {
     /** The ArrayList of friends, in the form of Strings which are their names. */
     private ArrayList<String> friends;
 
+    private Map<String, List<String>> chatHistories;
+
     /**
      * A method that calculates a student's connection strength between student A and Student B.
      *
@@ -77,6 +79,7 @@ public class UniversityStudent extends Student {
         this.previousInternships = previousInterns;
         this.roommate = null;
         this.friends = new ArrayList<>();
+        this.chatHistories = new HashMap<>();
     }
 
     /**
@@ -122,6 +125,20 @@ public class UniversityStudent extends Student {
         this.friends.remove(friend);
     }
 
+
+    public List<String> getChatHistory(String otherChatter) {
+        return chatHistories.computeIfAbsent(otherChatter, k -> new ArrayList<>());
+    }
+
+
+    public void addChatMessage(String otherChatter, String message) {
+        getChatHistory(otherChatter).add(message);
+    }
+
+
+    public Map<String, List<String>> getChatHistories() {
+        return chatHistories;
+    }
     /**
      * Implements and overrides the toString method from the Object class. In our case, we modify
      * the toString in our own object for the purpose to display the data of the object rather

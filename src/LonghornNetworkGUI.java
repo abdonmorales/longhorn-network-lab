@@ -18,7 +18,7 @@ import java.util.List;
 public class LonghornNetworkGUI {
     /**
      * This is the frame/window that will be used 
-     * to display the GUI and Startpage.
+     * to display the GUI and Start page.
      */
     private JFrame frame;
 
@@ -623,8 +623,79 @@ public class LonghornNetworkGUI {
             tabbedPane.addTab("Referrals", referralPanel);
 
             // Create the student's chat page
-            JPanel ChatPanel = new JPanel();
-            tabbedPane.addTab("Chats", ChatPanel);
+            JPanel chatPanel = new JPanel(new BorderLayout());
+            DefaultListModel<String> talkChatUserModel = new DefaultListModel<>();
+            for (UniversityStudent chatStudent : studentData) {
+                if (!chatStudent.name.equalsIgnoreCase(student.name)) {
+                    talkChatUserModel.addElement(chatStudent.name);
+                }
+            }
+            JList<String> talkChatList = new JList<>(talkChatUserModel);
+            talkChatList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            JScrollPane userTalkScroll = new JScrollPane(talkChatList);
+            userTalkScroll.setBorder(BorderFactory.createTitledBorder("Users on ChatterTalk"));
+
+            DefaultListModel<String> messageListModel = new DefaultListModel<>();
+            JList<String> messageList = new JList<>(messageListModel);
+            JScrollPane messageScroll = new JScrollPane(messageList);
+            messageScroll.setBorder(BorderFactory.createTitledBorder("Chat"));
+
+            JTextField chatField = new JTextField(30);
+            JButton sendMessageButton = new JButton("Send Message");
+            JPanel chatInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            chatInputPanel.add(chatField);
+            chatInputPanel.add(sendMessageButton);
+            JPanel chatterPanel = new JPanel(new BorderLayout());
+            chatterPanel.add(messageScroll, BorderLayout.CENTER);
+            chatterPanel.add(chatInputPanel, BorderLayout.SOUTH);
+
+            JSplitPane chatSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, chatterPanel,
+                    userTalkScroll);
+            chatSplitPane.setResizeWeight(0.6);
+            chatPanel.add(chatSplitPane, BorderLayout.CENTER);
+
+            Map<String, DefaultListModel<String>> chatHistories = new HashMap<>();
+            talkChatList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    String selectedName = talkChatList.getSelectedValue();
+                    if (selectedName == null) {return;}
+                    if (!chatHistories.containsKey(selectedName)) {
+                        int userRetOption = JOptionPane.showConfirmDialog(chatInputPanel,
+                                "Start a new chat with " + selectedName + "?",
+                                "New Chat", JOptionPane.YES_NO_OPTION);
+                        if (userRetOption != JOptionPane.YES_OPTION) {
+                            talkChatList.clearSelection();
+                            return;
+                        }
+
+                        DefaultListModel<String> hist = new DefaultListModel<>();
+                        hist.addElement("You have created a new chat with " + selectedName + ".");
+                        chatHistories.put(selectedName, hist);
+                    }
+                    messageListModel.clear();
+                    DefaultListModel<String> hist = chatHistories.get(selectedName);
+                    for (int i = 0; i < hist.size(); i++) {
+                        messageListModel.addElement(hist.get(i));
+                    }
+                }
+            });
+
+            sendMessageButton.addActionListener(e -> {
+                String message = chatField.getText().trim();
+                String selectedUser = talkChatList.getSelectedValue();
+                if (selectedUser == null || message.isEmpty()) {return;}
+                for (UniversityStudent peer : studentData) {
+                    if (peer.name.equalsIgnoreCase(selectedUser)) {
+                        new ChatThread(student, peer, message).run();
+                        break;
+                    }
+                }
+                DefaultListModel<String> hist = chatHistories.get(selectedUser);
+                hist.addElement(student.name + ": " + message);
+                messageListModel.addElement(student.name + ": " + message);
+                chatField.setText("");
+            });
+            tabbedPane.addTab("Chats", chatPanel);
 
             // Create the student's friends page
             JPanel FriendsPanel = new JPanel(new BorderLayout());
@@ -713,12 +784,12 @@ public class LonghornNetworkGUI {
          */
         private static void displayStudentInfo (JTextArea studentInfoTextArea,
                                                 UniversityStudent student) {
-            studentInfoTextArea.append("Name: " + student.name + "\n");
+            studentInfoTextArea.append("Your name is " + student.name + "\n");
             studentInfoTextArea.append("Age: " + student.age + "\n");
-            studentInfoTextArea.append("Gender: " + student.gender + "\n");
+            studentInfoTextArea.append("Gender is " + student.gender + "\n");
             studentInfoTextArea.append("Year: " + student.year + "\n");
-            studentInfoTextArea.append("GPA: " + student.gpa + "\n");
-            studentInfoTextArea.append("Major: " + student.major + "\n");
+            studentInfoTextArea.append("GPA is " + student.gpa + "\n");
+            studentInfoTextArea.append("Majoring in " + student.major + "\n");
             studentInfoTextArea.setFont(studentInfoTextArea.getFont().deriveFont(24f));
         }
     }

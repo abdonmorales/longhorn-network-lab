@@ -42,8 +42,15 @@ public class ChatThread implements Runnable {
     public void run() {
         try {
             semaphore.acquire();
-
             // Simulating sending a message
+            String formattedMessage = sender.name + ": " + message;
+            sender.addChatMessage(receiver.name, formattedMessage);
+            semaphore.release();
+            semaphore.acquire();
+            receiver.addChatMessage(sender.name, formattedMessage);
+            semaphore.release();
+            semaphore.acquire();
+            // For logging
             System.out.println(sender.name + " sent a message to " + receiver.name + ": " + message);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

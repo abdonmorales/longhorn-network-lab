@@ -496,6 +496,10 @@ public class LonghornNetworkGUI {
      * <a href="mailto:abdonmorales@my.utexas.edu">abdonmorales@my.utexas.edu</a>
      */
     private class UserInfoWindow {
+        /**
+         * This is a constant that holds the preferred integers for top, bottom,
+         * left, and right corners for emptyBorders.
+         */
         private static final int BORDER_PRESETS = 20;
 
         /**

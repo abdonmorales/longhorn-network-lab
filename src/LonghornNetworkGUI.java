@@ -386,9 +386,22 @@ public class LonghornNetworkGUI {
      *
      */
     private class GraphPanel extends JPanel {
+        /**
+         * This is a map that stores the coordinates of each node in the graph.
+         * The key is the UniversityStudent object and the value is a Point object
+         * that represents the coordinates of the node in the panel.
+         */
         private final java.util.Map<UniversityStudent, Point> coord = new HashMap<>();
 
+        /**
+         * The radius of the circle in which the nodes will be arranged.
+         */
         private final int RADIUS = 200;
+
+        /**
+         * The size of the nodes in the graph.
+         * This is used to draw the nodes in the graph.
+         */
         private final int NODE_SIZE = 40;
 
         /**

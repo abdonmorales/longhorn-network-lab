@@ -139,6 +139,7 @@ public class LonghornNetworkGUI {
         searchField.setPreferredSize(fixedSize);
         searchField.setForeground(Color.GRAY);
         searchField.addFocusListener(new FocusAdapter() {
+            @Override
             public void focusGained(FocusEvent e) {
                 // If the search field is focused and contains the placeholder text, clear it
                 if (searchField.getText().equals(placeholder)) {
@@ -174,6 +175,7 @@ public class LonghornNetworkGUI {
         JMenu fileMenu = new JMenu("File");
         JMenuItem openItem = new JMenuItem("Open Student Data File");
         openItem.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 // Create a file chooser to select the student data file
                 JFileChooser fileChooser = new JFileChooser();
@@ -202,6 +204,7 @@ public class LonghornNetworkGUI {
         });
         JMenuItem exitItem = new JMenuItem("Exit");
         exitItem.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 System.exit(0);
@@ -237,6 +240,7 @@ public class LonghornNetworkGUI {
         JMenu helpMenu = new JMenu("Help");
         JMenuItem aboutItem = new JMenuItem("About Longhorn Network");
         aboutItem.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String about = """
                         Longhorn Network 1.0 Beta
@@ -258,6 +262,7 @@ public class LonghornNetworkGUI {
      */
     private ActionListener studentGraph() {
         return new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
 

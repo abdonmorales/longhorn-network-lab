@@ -320,6 +320,7 @@ public class LonghornNetworkGUI {
      */
     private ActionListener goHome(JFrame window) {
         return new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
                 frame.setVisible(true);
@@ -337,6 +338,7 @@ public class LonghornNetworkGUI {
      */
     private ActionListener search(JTextField searchField) {
         return new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 try {
@@ -522,6 +524,7 @@ public class LonghornNetworkGUI {
             JPanel roommateButtonPanel = new JPanel();
             JButton pairRoommateButton = new JButton("Create Roommate Pairs");
             pairRoommateButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     GaleShapley.assignRoommates(studentData);
                     DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -625,6 +628,9 @@ public class LonghornNetworkGUI {
             // Create the student's chat page
             JPanel chatPanel = new JPanel(new BorderLayout());
             DefaultListModel<String> talkChatUserModel = new DefaultListModel<>();
+
+            // Build the list of users to chat with, excluding the current user
+            // and add them to the list model
             for (UniversityStudent chatStudent : studentData) {
                 if (!chatStudent.name.equalsIgnoreCase(student.name)) {
                     talkChatUserModel.addElement(chatStudent.name);
@@ -656,13 +662,20 @@ public class LonghornNetworkGUI {
 
             Map<String, DefaultListModel<String>> chatHistories = new HashMap<>();
             talkChatList.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseClicked(MouseEvent e) {
                     String selectedName = talkChatList.getSelectedValue();
+
+                    // If the selected name is null or does not exist, then return.
                     if (selectedName == null) {return;}
+
+                    // If the selected name is not in the chat histories, then create a new
+                    // chat history for that user.
                     if (!chatHistories.containsKey(selectedName)) {
                         int userRetOption = JOptionPane.showConfirmDialog(chatInputPanel,
                                 "Start a new chat with " + selectedName + "?",
                                 "New Chat", JOptionPane.YES_NO_OPTION);
+                        // If the user does not want to start a new chat, then return.
                         if (userRetOption != JOptionPane.YES_OPTION) {
                             talkChatList.clearSelection();
                             return;
@@ -674,6 +687,9 @@ public class LonghornNetworkGUI {
                     }
                     messageListModel.clear();
                     DefaultListModel<String> hist = chatHistories.get(selectedName);
+
+                    // Iterate through the chat history and add each message to 
+                    // the message list model
                     for (int i = 0; i < hist.size(); i++) {
                         messageListModel.addElement(hist.get(i));
                     }
@@ -683,7 +699,12 @@ public class LonghornNetworkGUI {
             sendMessageButton.addActionListener(e -> {
                 String message = chatField.getText().trim();
                 String selectedUser = talkChatList.getSelectedValue();
+
+                // If the selected user is null or the message is empty, then return.
                 if (selectedUser == null || message.isEmpty()) {return;}
+
+                // Iterate through the student data to find the selected user
+                // and send the message to them using our ChatThread implementation.
                 for (UniversityStudent peer : studentData) {
                     if (peer.name.equalsIgnoreCase(selectedUser)) {
                         new ChatThread(student, peer, message).run();
